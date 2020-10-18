@@ -3,32 +3,35 @@ package home.tests;
 import java.util.Scanner;
 
 public class Main {
+	//TODO: add javadoc for all the classes and methods in the package
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("insert polygon type: ");
-		String name = scanner.next();
-		//String line = scanner.nextLine();
+		String shape = scanner.next();
+		System.out.println("insert type of polygon");
+		String type = scanner.next();
 		
-		switch (name) {
+		Polygon polygon = null;
+		
+		switch (shape) {
 			case "Triangle": {
-				
-				String type = scanner.next();
-				Triangle triangle = new Triangle(type);
-				
-				
+				if (type.equals("Right")) {
+					polygon = new RightTriangle(10, 13, 18);
+				} else if (type.equals("Isosceles")) {
+					polygon = new IsoscelesTriangle(10, 23);
+				}
 			}; break;
 			case "Circle": {
-				Circle circle = new Circle();
+				polygon = new Circle();
 			} break;
 		}
 		
-		/*
-		Operations op = new Rectangle();
-		int area = op.computeArea();
-		int per = op.computePerimeter();
-		System.out.println("area = " + area + "; peri = " + per + ".\n");
-		 */
+		if (polygon != null) {
+			int area = polygon.getArea();
+			int perimeter = polygon.getPerimeter();
+			System.out.println("area = " + area + "; peri = " + perimeter + ".\n");
+		}
 		
 	}
 }
