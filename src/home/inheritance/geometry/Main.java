@@ -1,10 +1,17 @@
-package home.tests;
+package home.inheritance.geometry;
 
 import java.util.Scanner;
 
+/**
+ * main file for starting the geometric
+ */
 public class Main {
 	//TODO: add javadoc for all the classes and methods in the package
 	
+	/**
+	 * wonder
+	 * @param args nothing
+	 */
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("insert polygon type: ");
@@ -21,7 +28,7 @@ public class Main {
 				} else if (type.equals("Isosceles")) {
 					polygon = new IsoscelesTriangle(10, 23);
 				}
-			}; break;
+			} break;
 			case "Circle": {
 				polygon = new Circle();
 			} break;
