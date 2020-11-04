@@ -30,42 +30,12 @@ public class Time implements Comparable<Time> {
 		return seconds;
 	}
 	
-	private void setDescription(String str) {
-		this.description = str;
-	}
-	
-	/**
-	 * random stupid useless description, just for adding more parameters to the objects
-	 * //TODO: create a more useful description of the time
-	 */
 	private void setDescription() {
-		StringBuilder builder = new StringBuilder();
-		if (hours == 12) {
-			builder.append("mezzogiorno");
-		} else if (hours == 6) {
-			builder.append("alba");
-		} else if (hours == 0) {
-			builder.append("mezzanotte");
-		}
-		
-		if (minutes == 30) {
-			builder.append(" e mezza");
-		} else if (minutes == 15) {
-			builder.append(" e un quarto");
-		} else if (minutes == 45) {
-			builder.append(" e tre quarti");
-		}
-		
-		if (seconds == 0) {
-			builder.append(" precise.");
-		} else {
-			builder.append(" circa.");
-		}
-		this.description = builder.toString();
+		this.description = String.format("%02d:%02d:%02d", this.hours, this.minutes, this.seconds);
 	}
 	
-	private String getDescription() {
-		return description;
+	protected String getDescription() {
+		return this.description;
 	}
 	
 	/**
@@ -79,7 +49,7 @@ public class Time implements Comparable<Time> {
 	public int compareTo(Time comparison) {
 		int timeComparison = comparison.getHours() * 3600 + comparison.getMinutes() * 60 + comparison.getSeconds();
 		int thisTime = this.getHours() * 3600 + this.getMinutes() * 60 + this.getSeconds();
-		return thisTime - timeComparison;
+		return thisTime - timeComparison; //represents the time difference expressed in seconds
 	}
 	
 	/**

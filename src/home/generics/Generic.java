@@ -1,5 +1,6 @@
 package home.generics;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -19,13 +20,14 @@ public class Generic {
 	 * @param args console input
 	 */
 	public static void main(String[] args) {
+		/*
+		//manual input testing
 		Scanner scan = new Scanner(System.in);
 
-		Time time1 = input(scan, 1);
-		Time time2 = input(scan, 2);
+		Time time1 = randomTime();
+		Time time2 = randomTime();
 		
-		System.out.printf("time1 = %2d:%2d:%2d; time2 = %2d:%2d:%2d\n", time1.getHours(), time1.getMinutes(), time1.getSeconds(),
-				time2.getHours(), time2.getMinutes(), time2.getSeconds());
+		System.out.printf("time1 = %s; time2 = %s\n", time1.getDescription(), time2.getDescription());
 		
 		Interval<Time> obj1 = new Interval<>(time1, time2);
 		
@@ -35,14 +37,36 @@ public class Generic {
 		Interval<Time> obj2 = new Interval<>(time3, time4);
 		
 		System.out.println("comparison yields " + obj1.compareTo(obj2) + "\n");
+		System.out.println("");*/
 		
-		//TODO: test more methods for the generic class
+		//automatic testing with randomized input
+		//just creates an arraylist with random objects inserted. this is for testing nested generic classes
+		ArrayList<Interval<Time>> list = new ArrayList<>();
+		int number = 20;
+		Time[] timetable = new Time[number];
+		int i = 0;
+		for (Time t: timetable) {
+			t = randomInput();
+			System.out.println("time " + i + " = " + t.getDescription() + "\n");
+			i++;
+		}
+		for (i = 0; i < number; i+=2) {
+			Interval<Time> interval = new Interval<>(timetable[i], timetable[i+1]);
+			list.add(i/2, interval);
+		}
 		
-		//TODO: add support for the classes Date and Timezone
+		list = SortingGenerics.sortElements(list);
+		System.out.println("sorted the array list");
+		for (i = 0; i < list.size(); i++) {
+			Time t1 = list.get(i).getLower();
+			Time t2 = list.get(i).getUpper();
+			System.out.printf("interval %d = <%s , %s>\n", i, t1.getDescription(), t2.getDescription());
+		}
 	}
 	
-	private static Time input(Scanner scan, int i) {
-		System.out.println("write time " + i + "with this format: hh:mm:ss in a single line");
+	
+	private static Time manualInput(Scanner scan, int i) {
+		System.out.println("write time " + i + " with this format: hh:mm:ss in a single line");
 		String str = scan.nextLine();
 		int hour = Integer.parseInt(str.substring(0, 2));
 		int minutes = Integer.parseInt(str.substring(3, 5));
@@ -51,5 +75,15 @@ public class Generic {
 		return new Time(hour, minutes, seconds);
 	}
 	
-	//TODO: add input randomization for testing quickly multiple intervals, without having to wait for the user input
+	/**
+	 * randomize creation of a new Time instance
+	 * @return Time object with random values
+	 */
+	private static Time randomInput() {
+		int hours = (int) (Math.random() * 24);
+		int minutes = (int) (Math.random() * 60);
+		int seconds = (int) (Math.random() * 60);
+		return new Time(hours, minutes, seconds);
+	}
+	
 }

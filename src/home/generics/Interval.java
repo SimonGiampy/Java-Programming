@@ -13,7 +13,7 @@ public class Interval<A extends Comparable<A>> implements Comparable<Interval<A>
 	private final A lower, upper; //upper and lower bounds of the interval
 	
 	protected Interval(A lower, A upper) {
-		if (lower.compareTo(upper) < 0) {
+		if (lower.compareTo(upper) > 0) { //upper bound must be greater than the lower bound
 			A temp = lower;
 			lower = upper;
 			upper = temp;
@@ -81,5 +81,13 @@ public class Interval<A extends Comparable<A>> implements Comparable<Interval<A>
 	
 	public boolean isOverlapping(Interval<A> interval) {
 		return !isInside(interval);
+	}
+	
+	public boolean overlapsOnTheLeft(Interval<A> interval) {
+		return this.compareTo(interval) == -1;
+	}
+	
+	public boolean overlapsOnTheRight(Interval<A> interval) {
+		return !overlapsOnTheLeft(interval);
 	}
 }
