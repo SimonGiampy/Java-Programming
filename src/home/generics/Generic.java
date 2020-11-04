@@ -42,22 +42,20 @@ public class Generic {
 		//automatic testing with randomized input
 		//just creates an arraylist with random objects inserted. this is for testing nested generic classes
 		ArrayList<Interval<Time>> list = new ArrayList<>();
-		int number = 20;
+		int number = 20, i = 0;
 		Time[] timetable = new Time[number];
-		int i = 0;
-		for (Time t: timetable) {
-			t = randomInput();
-			System.out.println("time " + i + " = " + t.getDescription() + "\n");
-			i++;
+		for (i = 0; i < number; i++) {
+			timetable[i] = randomInput();
+			System.out.println("time " + i + " = " + timetable[i].getDescription());
 		}
-		for (i = 0; i < number; i+=2) {
+		for (i = 0; i < number - 1; i+=2) {
 			Interval<Time> interval = new Interval<>(timetable[i], timetable[i+1]);
 			list.add(i/2, interval);
 		}
 		
-		list = SortingGenerics.sortElements(list);
+		SortingGenerics.sortElements(list);
 		System.out.println("sorted the array list");
-		for (i = 0; i < list.size(); i++) {
+		for (i = 0; i < list.size() - 1; i++) {
 			Time t1 = list.get(i).getLower();
 			Time t2 = list.get(i).getUpper();
 			System.out.printf("interval %d = <%s , %s>\n", i, t1.getDescription(), t2.getDescription());

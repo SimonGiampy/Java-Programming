@@ -2,9 +2,7 @@ package home.generics;
 
 /**
  * Time format= hours:minutes:seconds
- * //TODO: add functions for summing and subtracting times, in base 60 of course
- * //TODO: add interfaces with methods that all classes used as generics for Interval must implement, in order to uniform
- *      all the methods implemented, that should be a standard
+ * //TODO: add functions for summing and subtracting times
  */
 public class Time implements Comparable<Time> {
 	
@@ -30,6 +28,9 @@ public class Time implements Comparable<Time> {
 		return seconds;
 	}
 	
+	/**
+	 * sets a string unique for the Time object which is the format representation with 2 digits for every integer
+	 */
 	private void setDescription() {
 		this.description = String.format("%02d:%02d:%02d", this.hours, this.minutes, this.seconds);
 	}

@@ -28,6 +28,10 @@ public class SortingGenerics {
 				j--;
 			}
 		}
+		//PROBLEM: technically the sorting order is based on the comparison function implemented in the class Time (the
+			//generic type). But the comparison return values I used constitute a description which is not really suited
+			//for sorting the intervals. A better distinction of the return values and a more sophisticated comparison
+			//mechanism is needed for the sort method. But it's not needed, since it's just for testing purposes
 		
 		return list;
 	}

@@ -12,6 +12,11 @@ public class Interval<A extends Comparable<A>> implements Comparable<Interval<A>
 	
 	private final A lower, upper; //upper and lower bounds of the interval
 	
+	/**
+	 * constructor which takes the two bounds to create an interval
+	 * @param lower bound
+	 * @param upper bound
+	 */
 	protected Interval(A lower, A upper) {
 		if (lower.compareTo(upper) > 0) { //upper bound must be greater than the lower bound
 			A temp = lower;
@@ -66,6 +71,8 @@ public class Interval<A extends Comparable<A>> implements Comparable<Interval<A>
 		}
 		return 0;
 	}
+	
+	//utility functions to understand the result of the comparison between intervals, provides a description through code
 	
 	public boolean comesBefore(Interval<A> interval) {
 		return this.compareTo(interval) == -2;
