@@ -1,4 +1,4 @@
-package home.generics;
+package home.generics.intervals;
 
 /**
  * format= day:month:year

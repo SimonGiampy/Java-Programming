@@ -1,4 +1,4 @@
-package home.generics;
+package home.generics.intervals;
 
 /**
  * format= GMT +-n , where +-n indicates a positive or negative integer number b
