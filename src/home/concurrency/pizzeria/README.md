@@ -2,7 +2,11 @@
 
 The purpose of this exercise is to make different threads operating separately but collaborating with each other. Every
 thread exchanges information with others and once a thread finishes its work, it terminates the execution. Every thread
-has its own priority execution 
+has its own priority of execution, and exchanges information with the main thread (Pizzeria) and with other threads.
+The main goal of this little project is to understand how multi-threading programming works in java, and learn how to
+implement data structures and synchronization techniques (low and high level) in order to get the desired parallelization.
+
+A description of the exercise and its implementation follows.
 
 #### Pizzeria Workflow Design
 
