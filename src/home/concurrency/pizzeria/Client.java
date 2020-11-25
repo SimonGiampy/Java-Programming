@@ -26,7 +26,7 @@ public class Client implements Runnable {
 	 * @param listener the listener object is an instance of a class that implements OrderListener (that is always
 	 *                 Pizzeria in this case)
 	 */
-	protected void setOrderCreationListener(OrderListener listener) {
+	protected void setOrderMadeListener(OrderListener listener) {
 		this.listener = listener;
 	}
 	
@@ -67,6 +67,10 @@ public class Client implements Runnable {
 	
 	protected String getName() {
 		return this.name;
+	}
+	
+	protected int getIdClient() {
+		return this.idClient;
 	}
 	
 	/**

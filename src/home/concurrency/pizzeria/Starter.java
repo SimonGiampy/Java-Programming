@@ -2,7 +2,7 @@ package home.concurrency.pizzeria;
 
 import java.util.Scanner;
 
-public class Starter {
+class Starter {
 	
 	public static void main(String[] args) {
 		
