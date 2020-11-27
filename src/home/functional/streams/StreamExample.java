@@ -2,8 +2,9 @@ package home.functional.streams;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.function.BinaryOperator;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,7 +12,8 @@ import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
 /**
- * this class contains a set of utility functions to test the Stream class and apply functional programming to a simple example
+ * this class contains a set of utility functions to test the Stream class. The purpose is learning how to apply functional programming paradigm in
+ * order to simplify a set of complex functions, which otherwise would take too long to be written.
  * @see <a href="https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/"> Stream Class tutorial </href>
  */
 class StreamExample {
@@ -32,18 +34,57 @@ class StreamExample {
 		}
 		array.add(textExample.substring(pos));
 		
-		
+		//Stream creation from the arraylist of strings
 		Stream<String> stream = array.stream();
+		
+		//shows output of mapper function
 		//printStream(mapper(stream));
-		//TODO: add function to extrapolate the data from the returned map
+		//shows output of the custom filter
+		//printStream(filterer(stream));
+		//show output of the custom sorting method
+		//printStream(sorting(stream));
+		
+		//shows the entire structure of the Map created from the application of two different Functions to the strings in the Stream object
+		Map<Double, ArrayList<Integer>> outputMap = collector(uniqueWords(stream));
+		//shows the entire structure of the map created with the collect method, by printing the values, using a Consumer Function with 2 parameters.
+		outputMap.forEach(new BiConsumer<Double, ArrayList<Integer>>() {
+			@Override
+			public void accept(Double x, ArrayList<Integer> integers) {
+				System.out.printf("%f: < ", x);
+				for (int i: integers.toArray(new Integer[0])) {
+					System.out.printf("%d ", i);
+				}
+				System.out.print(" >\n");
+			}
+		});
 		
 	}
 	
 	//TODO: add advanced collector mapper, that uses four different operations: a supplier, an accumulator, a combiner and a finisher.
 	
-	//TODO: try to find a sense in all this crap
-	//TODO: add comments to explain this bullshit code
-	private static Map<Double, BinaryOperator<Integer>> collector(Stream<String> stream) {
+	/**
+	 * This method is an example of the usage of the {@code Stream.collect} method, which transforms a Stream object to a collection, (a Map here).
+	 * The output Map is a set of keys and values. The keys are Double variables, the values are Arraylists of integers. There are 2 Functions that
+	 * elaborate the set of strings in input: the keyMapper Function takes a string and calculates the corresponding key value. The valueMapper
+	 * Function takes an input string and generates a list of integers from it. One necessary requirement for the input stream is that every
+	 * element must be distinct from the others, since the mapping is a 1-to-1 unique relationship.
+	 * @param stream the input stream containing only distinct words
+	 * @return a new map where the keys are Double numbers, and the values are an arraylist of integers
+	 */
+	private static Map<Double, ArrayList<Integer>> collector(Stream<String> stream) {
+		//usage example of a Predicate that tests the validity of the specified condition (length less or equal than 10)
+		//can be easily replaced with a lambda expression
+		boolean shortStrings = stream.allMatch(new Predicate<String>() {
+			@Override
+			public boolean test(String s) {
+				return s.length() <= 10;
+			}
+		});
+		/* //equivalent lambda expression:
+		 * boolean shortStrings = stream.allMatch(s -> s.length() <= 10);
+		 */
+		
+		
 		//a Function object that calculates a double value from an input string. Can be simplifies in a lambda expression
 		Function<String, Double> keyMapper = new Function<String, Double>() {
 			@Override
@@ -59,20 +100,24 @@ class StreamExample {
 			}
 		};
 		
-		//TODO: probably a binary operator doesn't make any sense
-		//this is the equivalent lambda expression that represents the same statement as the one above
-		Function<String, BinaryOperator<Integer>> valueMapper = new Function<String, BinaryOperator<Integer>>() {
+		//a Function object that calculates an arraylist of integers from an input string. Can be simplified in a lambda expression
+		Function<String, ArrayList<Integer>> valueMapper = new Function<String, ArrayList<Integer>>() {
 			@Override
-			public BinaryOperator<Integer> apply(String s) {
-				return (BinaryOperator<Integer>) (x, y) -> {
-					int z = 0;
-					for (int i = 0; i < s.length(); i++) {
-						z += x * s.charAt(i) + y * s.indexOf("f");
-					}
-					return z;
-				};
+			public ArrayList<Integer> apply(String s) {
+				//creates a set of numbers from an input string, a stupid algorithm
+				ArrayList<Integer> integers = new ArrayList<>();
+				int k;
+				for (int i = 0; i < s.length(); i++) {
+					k = s.toUpperCase().charAt(i);
+					integers.add(k);
+				}
+				//orders the arraylist
+				integers.sort(Integer::compareTo);
+				return integers;
 			}
 		};
+		
+		//returns the map of the 2 functions, where the input string is mapped to a set of keys (double values) and a set of values (arraylist)
 		return stream.collect(Collectors.toMap(keyMapper, valueMapper));
 	}
 	
