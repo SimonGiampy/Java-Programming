@@ -8,7 +8,7 @@ package home.generics.intervals;
  * @param <A> generic class for the bounds of the interval. Both bounds (upper and lower) must be of the same type
  *
  */
-public class Interval<A extends Comparable<A>> implements Comparable<Interval<A>>  {
+ class Interval<A extends Comparable<A>> implements Comparable<Interval<A>>  {
 	
 	private final A lower, upper; //upper and lower bounds of the interval
 	

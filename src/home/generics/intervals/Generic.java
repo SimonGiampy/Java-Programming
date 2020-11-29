@@ -11,7 +11,7 @@ import java.util.Scanner;
  * custom sets of numbers, each one with its rules. The generic objects must implement the Comparable interface, in order
  * to make sure they can be interpreted as numbers and be compared one to another.
  */
-public class Generic {
+ class Generic {
 	
 	/**
 	 * the main method creates objects of the various custom classes, and assigns the required parameters. Then creates the

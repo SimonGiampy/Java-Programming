@@ -4,7 +4,7 @@ package home.generics.intervals;
  * Time format= hours:minutes:seconds
  * //TODO: add functions for summing and subtracting times
  */
-public class Time implements Comparable<Time> {
+ class Time implements Comparable<Time> {
 	
 	private final int hours, minutes, seconds;
 	private String description;

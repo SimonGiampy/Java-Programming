@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * this is not a generic class, but its only purpose is to have a generic method inside it
  */
-public class SortingGenerics {
+ class SortingGenerics {
 	
 	/**
 	 * This function takes as input an arraylist of elements of the generic type T, then sorts them by using a simple
