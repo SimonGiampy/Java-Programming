@@ -8,16 +8,14 @@ class Pizzaiolo implements Runnable {
 	private Order currentOrder;
 	private Pizzeria pizzeria;
 	
-	private final OrderManager manager;
+	private final CiroTheOrderManager ciro;
 	
-	protected Pizzaiolo(String name, int idNumber, OrderManager manager) {
+	protected Pizzaiolo(String name, int idNumber, CiroTheOrderManager manager) {
 		this.name = name;
 		this.idPizzaiolo = idNumber;
 		this.currentOrder = null;
-		this.manager = manager;
+		this.ciro = manager;
 	}
-	
-	
 	
 	/**
 	 * If this thread was constructed using a separate {@code Runnable} run object, then that {@code Runnable} object's {@code run} method is called;
@@ -25,16 +23,21 @@ class Pizzaiolo implements Runnable {
 	 */
 	@Override
 	public void run() {
-		while (!manager.isShopClosed() || !manager.isQueueEmpty()) {
+		while (!ciro.isShopClosed() || !ciro.isQueueEmpty()) {
 			try {
-				this.currentOrder = manager.takeOrder();
-				System.out.println("pizzaiolo received order ");
-				Thread.sleep(3000); //processing time
+				this.currentOrder = ciro.takeOrder();
+				long waitingTime = (long) (Math.random() * 7000) + 1000;
+				System.out.println("pizzaiolo " + getIdPizzaiolo() + " received order #" + currentOrder.getIdOrder() + ", waiting " + waitingTime);
+				Thread.sleep(waitingTime); //different percentages of priorities); //processing time
 			} catch (InterruptedException ignored) {
 			
 			}
 			
 		}
 		
+	}
+	
+	public int getIdPizzaiolo() {
+		return idPizzaiolo;
 	}
 }

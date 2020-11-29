@@ -3,11 +3,12 @@ package home.concurrency.pizzeria;
 /**
  * Contains the types of pizzas chosen, the quantities, and calculates the price that the Client pays to the Pizzeria
  */
-public class Order {
+class Order {
 
 	private int numberPizzas; //total number of pizzas in the order
 	private Menu[] pizzas;
 	private double price;
+	private int idOrder;
 	private Client client;
 	private Pizzaiolo pizzaiolo;
 	private String orderDescription;
@@ -21,9 +22,10 @@ public class Order {
 	 * @param client the client who makes the order
 	 * @param pizzaiolo the pizzaiolo who makes the pizzas
 	 */
-	protected Order(Menu[] pizzas, Client client, Pizzaiolo pizzaiolo) {
+	protected Order(Menu[] pizzas, int id, Client client, Pizzaiolo pizzaiolo) {
 		this.numberPizzas = pizzas.length;
 		this.pizzas = pizzas;
+		this.idOrder = id;
 		this.client = client;
 		this.pizzaiolo = pizzaiolo;
 		
@@ -34,7 +36,7 @@ public class Order {
 		//creates the text description of the order
 		//TODO: add the multiplicity of the pizzas in the text. For example, a client "ordered 2 margherita, 2 capricciosa".
 		StringBuilder builder = new StringBuilder();
-		builder.append(client.getName()).append(" ordered ");
+		builder.append(client.getName()).append(" #").append(client.getIdClient()).append(" ordered ");
 		for (int i = 0; i < numberPizzas; i++) {
 			builder.append("one ").append(pizzas[i].getName()).append(", ");
 		}
@@ -42,27 +44,31 @@ public class Order {
 		this.orderDescription = builder.toString();
 	}
 	
-	public int getNumberPizzas() {
+	protected int getNumberPizzas() {
 		return numberPizzas;
 	}
 	
-	public Menu[] getPizzas() {
+	protected Menu[] getPizzas() {
 		return pizzas;
 	}
 	
-	public double getPrice() {
+	protected double getPrice() {
 		return price;
 	}
 	
-	public Client getClient() {
+	protected int getIdOrder() {
+		return this.idOrder;
+	}
+	
+	protected Client getClient() {
 		return client;
 	}
 	
-	public Pizzaiolo getPizzaiolo() {
+	protected Pizzaiolo getPizzaiolo() {
 		return pizzaiolo;
 	}
 	
-	public String getOrderDescription() {
+	protected String getOrderDescription() {
 		return orderDescription;
 	}
 }

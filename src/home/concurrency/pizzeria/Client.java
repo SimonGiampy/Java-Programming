@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * a Client is a thread that makes a random order for the Pizzeria
  */
-public class Client implements Runnable {
+class Client implements Runnable {
 	
 	private final String name;
 	private int idClient;
@@ -89,6 +89,6 @@ public class Client implements Runnable {
 		}
 		
 		//at the moment the pizzaiolo is null since the request is handled by the pizzeria and not the client itself
-		return new Order(pizzas, this, null);
+		return new Order(pizzas, this.idClient, this, null);
 	}
 }

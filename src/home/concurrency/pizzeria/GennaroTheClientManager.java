@@ -7,7 +7,7 @@ import java.util.concurrent.*;
  */
 class GennaroTheClientManager {
 	
-	protected final static int numberOfClients = 3;
+	protected final static int numberOfClients = 10;
 	
 	//list of names for the clients
 	private final String[] clientNames = {"Fricca 'o ncapac",  "nonno Prullo", "Peppe 'o Murator", "Roccu u zimbaru",

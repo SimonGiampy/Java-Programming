@@ -2,12 +2,13 @@ package home.concurrency.pizzeria;
 
 class Pizzeria implements Runnable, OrderListener {
 	
-	private int numberOfPizzaioli;
+	private final int numberOfPizzaioli = 2;
 	private int processedOrders;
 	
-	private Thread maker;
-	private Pizzaiolo pizzaiolo;
-	private final OrderManager gennaro;
+	private Thread[] pizzaioliThreads;
+	private Pizzaiolo[] pizzaioli;
+	
+	private final CiroTheOrderManager ciro;
 	
 	
 	private final String[] namesPizzaioli = {"Gennaro 'o biondo", "Leonardo", "Ciro 'o svitat'", "Ciruzz 'o cicat",
@@ -18,20 +19,44 @@ class Pizzeria implements Runnable, OrderListener {
 	/**
 	 * default constructor with default parameters, used for initial testing
 	 */
-	protected Pizzeria(OrderManager manager) {
+	protected Pizzeria(CiroTheOrderManager manager) {
 		//just one pizzaiolo for initial tests
-		numberOfPizzaioli = 1;
 		processedOrders = 0;
 		
-		this.gennaro = manager;
-		pizzaiolo = new Pizzaiolo(getRandomName(), 0, gennaro);
-		maker = new Thread(pizzaiolo);
-		//maker.setDaemon(true);
+		this.ciro = manager;
+		pizzaioli = new Pizzaiolo[2];
+		pizzaioliThreads = new Thread[2];
+		for (int i = 0; i < numberOfPizzaioli; i++) {
+			pizzaioli[i] = new Pizzaiolo(getRandomName(), i, ciro);
+			pizzaioliThreads[i] = new Thread(pizzaioli[i]);
+		}
+		
 	}
 	
 	@Override
 	public void run() {
-		maker.start();
+		for (Thread th: pizzaioliThreads) {
+			th.start();
+		}
+		
+		Thread shopManager = new Thread(() -> {
+			while (arePizzaioliThreadsAlive()) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		
+	}
+	
+	private boolean arePizzaioliThreadsAlive()  {
+		for (int i = 0; i < numberOfPizzaioli; i++) {
+			if (!pizzaioliThreads[i].isAlive()) return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -44,11 +69,11 @@ class Pizzeria implements Runnable, OrderListener {
 	public void onOrderReceived(Client client, Order order) {
 		System.out.println("order received from client#" + client.getIdClient());
 		try {
-			this.gennaro.assignOrder(order);
+			this.ciro.assignOrder(order);
 			processedOrders++;
 			if (processedOrders == GennaroTheClientManager.numberOfClients) {
-				gennaro.closeShop();
-				Thread.currentThread().interrupt();
+				ciro.closeShop();
+				notifyAll();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

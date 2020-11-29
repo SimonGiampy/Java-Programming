@@ -3,7 +3,7 @@ package home.concurrency.pizzeria;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class OrderManager {
+class CiroTheOrderManager {
 
 	private Queue<Order> orders;
 	
@@ -14,16 +14,19 @@ class OrderManager {
 	private boolean shopClosed;
 	
 	
-	protected OrderManager() {
+	protected CiroTheOrderManager() {
 		orders = new LinkedList<>();
 		this.flag = true;
 		this.shopClosed = false;
 	}
 	
 	protected synchronized void assignOrder(Order newOrder) throws InterruptedException {
+		/*
 		while (!flag) {
 			wait();
 		}
+		*/
+		
 		flag = false;
 		this.orders.add(newOrder);
 		
