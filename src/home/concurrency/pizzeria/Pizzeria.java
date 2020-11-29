@@ -1,12 +1,16 @@
 package home.concurrency.pizzeria;
 
-class Pizzeria implements OrderListener {
+class Pizzeria implements Runnable, OrderListener {
 	
 	private int numberOfPizzaioli;
+	private int processedOrders;
 	
-	private Pizzaiolo pizzaiolo1;
+	private Thread maker;
+	private Pizzaiolo pizzaiolo;
+	private final OrderManager gennaro;
 	
-	private String[] namesPizzaioli = {"Gennaro 'o biondo", "Leonardo", "Ciro 'o svitat'", "Ciruzz 'o cicat",
+	
+	private final String[] namesPizzaioli = {"Gennaro 'o biondo", "Leonardo", "Ciro 'o svitat'", "Ciruzz 'o cicat",
 			"Gennarino 'o milanes", "Genny 'o pompat", "Giuanni u' bucagummi", "Pascal", "Pino 'o luord",
 			"Kristian 'o ncapac", "Don Franco u' sciupafimmine"};
 	
@@ -14,21 +18,20 @@ class Pizzeria implements OrderListener {
 	/**
 	 * default constructor with default parameters, used for initial testing
 	 */
-	protected Pizzeria() {
-		//this function is just for testing
-		GennaroTheClientManager gennaro = new GennaroTheClientManager(this, 1000);
+	protected Pizzeria(OrderManager manager) {
 		//just one pizzaiolo for initial tests
-		pizzaiolo1 = new Pizzaiolo(getRandomName(), 0);
-		pizzaiolo1.run();
+		numberOfPizzaioli = 1;
+		processedOrders = 0;
+		
+		this.gennaro = manager;
+		pizzaiolo = new Pizzaiolo(getRandomName(), 0, gennaro);
+		maker = new Thread(pizzaiolo);
+		//maker.setDaemon(true);
 	}
 	
-	/**
-	 * the real constructor with parameters passed from the Starter class
-	 * @param numberOfPizzaioli self explanatory
-	 * @param clientSpawnDelay self explanatory
-	 */
-	protected Pizzeria(int numberOfPizzaioli, int clientSpawnDelay) {
-	
+	@Override
+	public void run() {
+		maker.start();
 	}
 	
 	/**
@@ -40,7 +43,16 @@ class Pizzeria implements OrderListener {
 	@Override
 	public void onOrderReceived(Client client, Order order) {
 		System.out.println("order received from client#" + client.getIdClient());
-		
+		try {
+			this.gennaro.assignOrder(order);
+			processedOrders++;
+			if (processedOrders == GennaroTheClientManager.numberOfClients) {
+				gennaro.closeShop();
+				Thread.currentThread().interrupt();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -51,5 +63,6 @@ class Pizzeria implements OrderListener {
 		double pos = Math.random() * namesPizzaioli.length;
 		return namesPizzaioli[(int) pos];
 	}
+	
 	
 }

@@ -14,7 +14,11 @@ class Starter {
 		*/
 		
 		//default parameters version
-		Pizzeria pizzeria = new Pizzeria();
+		OrderManager gennaro = new OrderManager();
+		Pizzeria pizzeria = new Pizzeria(gennaro);
+		new Thread(pizzeria).start();
+		GennaroTheClientManager clientManager = new GennaroTheClientManager(pizzeria, 1000);
+		
 		//order of execution: Starter (user input) -> Pizzeria (parameters setup) -> Gennaro (Clients spawner) -> Pizzaioli
 	
 		

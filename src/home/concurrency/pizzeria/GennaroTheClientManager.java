@@ -7,6 +7,8 @@ import java.util.concurrent.*;
  */
 class GennaroTheClientManager {
 	
+	protected final static int numberOfClients = 3;
+	
 	//list of names for the clients
 	private final String[] clientNames = {"Fricca 'o ncapac",  "nonno Prullo", "Peppe 'o Murator", "Roccu u zimbaru",
 			"Sara a menza scupetta", "Loredana sacciututtu", "Peppe u tenent", "Daniele Banana Joe", "Maria 'a bambula",
@@ -24,7 +26,8 @@ class GennaroTheClientManager {
 		//starts spawning clients, at a fixed rate, with the delay specified in input
 		
 		ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-		for (int i = 1; i <= 10; i++) {
+		
+		for (int i = 1; i <= numberOfClients; i++) {
 			//this final variable bypasses the lambda scope restriction: a lambda expression can refer to a variable
 			//  in an external scope only when the variable is not mutated outside, so it needs to be final.
 			final int finalI = i;

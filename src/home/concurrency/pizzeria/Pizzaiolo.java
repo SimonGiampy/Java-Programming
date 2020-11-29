@@ -2,32 +2,39 @@ package home.concurrency.pizzeria;
 
 class Pizzaiolo implements Runnable {
 	
-	private String name;
-	private int idPizzaiolo;
+	private final String name;
+	private final int idPizzaiolo;
 	
 	private Order currentOrder;
+	private Pizzeria pizzeria;
 	
-	protected Pizzaiolo(String name, int idNumber) {
+	private final OrderManager manager;
+	
+	protected Pizzaiolo(String name, int idNumber, OrderManager manager) {
 		this.name = name;
 		this.idPizzaiolo = idNumber;
 		this.currentOrder = null;
+		this.manager = manager;
 	}
 	
+	
+	
 	/**
-	 * When an object implementing interface {@code Runnable} is used to create a thread, starting the thread causes the
-	 * object's {@code run} method to be called in that separately executing thread.
-	 * @see Thread#run()
+	 * If this thread was constructed using a separate {@code Runnable} run object, then that {@code Runnable} object's {@code run} method is called;
+	 * otherwise, this method does nothing and returns.
 	 */
 	@Override
 	public void run() {
-		if (currentOrder == null) {
+		while (!manager.isShopClosed() || !manager.isQueueEmpty()) {
 			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				System.out.println("wait gets interrupted");
+				this.currentOrder = manager.takeOrder();
+				System.out.println("pizzaiolo received order ");
+				Thread.sleep(3000); //processing time
+			} catch (InterruptedException ignored) {
+			
 			}
+			
 		}
+		
 	}
-	
-	
 }
