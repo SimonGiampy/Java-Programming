@@ -3,7 +3,7 @@ package home.inheritance.geometry;
 /**
  * 3 sides with different dimensions
  */
-public class ScaleneTriangle extends Triangle implements Operations {
+ class ScaleneTriangle extends Triangle implements Operations {
 	
 	private final int side1;
 	private final int side2;

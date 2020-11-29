@@ -3,7 +3,7 @@ package home.inheritance.geometry;
 /**
  * represents isosceles triangles
  */
-public class IsoscelesTriangle extends Triangle implements Calculations {
+ class IsoscelesTriangle extends Triangle implements Calculations {
 	
 	private final int equalSide;
 	private final int baseSide;

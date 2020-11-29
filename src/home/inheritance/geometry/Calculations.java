@@ -3,7 +3,7 @@ package home.inheritance.geometry;
 /**
  * another interface with more methods than operations, specific for another class of shapes
  */
-public interface Calculations extends Operations {
+ interface Calculations extends Operations {
 	/**
 	 * this functions checks whether the sizes in input may compose a real triangle
 	 * @param side1 dimension of first side

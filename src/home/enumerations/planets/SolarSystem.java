@@ -1,6 +1,6 @@
 package home.enumerations.planets;
 
-public enum SolarSystem {
+enum SolarSystem {
 	
 	//list of planets with their values assigned by the constructor
 	//must be declared within one line before its method constructor and parameters
@@ -11,7 +11,7 @@ public enum SolarSystem {
 	Alternative("bitch please", 0.145);
 	
 	// universal gravitational constant  (m3 kg-1 s-2)
-	public static final double G = 6.67300E-11;
+	protected static final double G = 6.67300E-11;
 	
 	//parameters used for every planet
 	private final String name;
@@ -19,7 +19,7 @@ public enum SolarSystem {
 	private final double radius;
 	private final double distance;
 	
-	private SolarSystem(String nickName, double mass, double radius) {
+	SolarSystem(String nickName, double mass, double radius) {
 		this.name = nickName;
 		this.mass = mass;
 		this.radius = radius;
@@ -31,26 +31,26 @@ public enum SolarSystem {
 	 * @param nickName describes the name of the planet, different from the classic one
 	 * @param distance distance from the sun
 	 */
-	private SolarSystem(String nickName, double distance) {
+	SolarSystem(String nickName, double distance) {
 		this.name = nickName;
 		this.radius = 0; //not initialized
 		this.mass = 0; //not initialized
 		this.distance = distance;
 	}
 	
-	public String getName() {
+	protected String getName() {
 		return name;
 	}
 	
-	public double getMass() {
+	protected double getMass() {
 		return mass;
 	}
 	
-	public double getRadius() {
+	protected double getRadius() {
 		return radius;
 	}
 	
-	public double getDistance() {
+	protected double getDistance() {
 		return distance;
 	}
 	

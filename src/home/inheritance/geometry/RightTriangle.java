@@ -3,7 +3,7 @@ package home.inheritance.geometry;
 /**
  * triangle with 90 degrees angle
  */
-public final class RightTriangle extends Triangle implements Operations {
+ final class RightTriangle extends Triangle implements Operations {
 	
 	private final int cathetus1;
 	private final int cathetus2;

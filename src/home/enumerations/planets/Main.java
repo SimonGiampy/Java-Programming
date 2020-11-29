@@ -1,6 +1,6 @@
 package home.enumerations.planets;
 
-public class Main {
+class Main {
 	
 	public static void main(String[] args) {
 		//iteration through the elements of the enumeration for the solar system

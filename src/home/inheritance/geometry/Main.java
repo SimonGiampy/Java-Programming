@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * main file for starting the geometric
  */
-public class Main {
+ class Main {
 	//TODO: add javadoc for all the classes and methods in the package
 	
 	/**

@@ -3,7 +3,7 @@ package home.inheritance.geometry;
 /**
  * new interface
  */
-public interface Operations {
+ interface Operations {
 	/**
 	 * this functions calculates the area of a shape
 	 * @return the integer value of the computed area

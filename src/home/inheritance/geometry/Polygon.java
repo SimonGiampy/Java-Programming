@@ -6,7 +6,7 @@ package home.inheritance.geometry;
  * @author Simon
  * @version 1.1
  */
-public class Polygon {
+ class Polygon {
 	
 	protected int sidesNumber;
 	protected String color;
