@@ -7,15 +7,15 @@ import java.util.concurrent.*;
  */
 class GennaroTheClientManager {
 	
-	protected final static int numberOfClients = 10;
+	protected final static int numberOfClients = 4;
 	
 	//list of names for the clients
 	private final String[] clientNames = {"Fricca 'o ncapac",  "nonno Prullo", "Peppe 'o Murator", "Roccu u zimbaru",
 			"Sara a menza scupetta", "Loredana sacciututtu", "Peppe u tenent", "Daniele Banana Joe", "Maria 'a bambula",
 			"Biagino u pulmanista", "Daniele 'u dalton", "Rocco da pantahiena", "Gino a cuccuvella", "Carmelo u riggitanu",
 			"Maria a colla", "Gino u crunchiu", "Gino u lungu", "u sceriffu", "Tony Barretta", "Pinuzzu u culacchio",
-			"Andrea menzapizza", "Wario Audiolio", "zio Nano in persona", "Robertinu u fioraiu", "Gino, di Gino e Marco",
-			"Marco, di Gino e Marco", "zia Vanna", "Angelina 'a zitella", "FFFisico", "Ettoruzzu u sambiasinu"};
+			"Andrea menzapizza", "Maria a' zingara", "Wario Audiolio", "zio Nano in persona", "Robertinu u fioraiu", "Gino, di Gino e Marco",
+			"Marco, di Gino e Marco", "zia Vanna", "Angelina 'a zitella", "FFFisico", "Ettoruzzu u sambiasinu", "Rafele u' ferramenta"};
 	
 	/**
 	 * spawns a client with a fixed delay specified in the input

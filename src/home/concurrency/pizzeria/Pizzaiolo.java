@@ -26,15 +26,16 @@ class Pizzaiolo implements Runnable {
 		while (!ciro.isShopClosed() || !ciro.isQueueEmpty()) {
 			try {
 				this.currentOrder = ciro.takeOrder();
-				long waitingTime = (long) (Math.random() * 7000) + 1000;
+				long waitingTime = (long) (Math.random() * 1000) + 100;
 				System.out.println("pizzaiolo " + getIdPizzaiolo() + " received order #" + currentOrder.getIdOrder() + ", waiting " + waitingTime);
-				Thread.sleep(waitingTime); //different percentages of priorities); //processing time
+				//TODO: add dynamic assignment of processing time based on the order made.
+				Thread.sleep(waitingTime); //processing time
 			} catch (InterruptedException ignored) {
 			
 			}
 			
 		}
-		
+		System.out.println("pizzaiolo #" + this.getIdPizzaiolo() + " finished working");
 	}
 	
 	public int getIdPizzaiolo() {

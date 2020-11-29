@@ -15,7 +15,7 @@ class Starter {
 		CiroTheOrderManager gennaro = new CiroTheOrderManager();
 		Pizzeria pizzeria = new Pizzeria(gennaro);
 		new Thread(pizzeria).start();
-		GennaroTheClientManager clientManager = new GennaroTheClientManager(pizzeria, 500);
+		GennaroTheClientManager clientManager = new GennaroTheClientManager(pizzeria, 4000);
 		
 		//order of execution: Starter (user input) -> Pizzeria (parameters setup) -> Gennaro (Clients spawner) -> Pizzaioli
 	

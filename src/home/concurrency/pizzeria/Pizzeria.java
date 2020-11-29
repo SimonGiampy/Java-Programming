@@ -18,14 +18,15 @@ class Pizzeria implements Runnable, OrderListener {
 	
 	/**
 	 * default constructor with default parameters, used for initial testing
+	 * @param manager the unique instance for the order manager
 	 */
 	protected Pizzeria(CiroTheOrderManager manager) {
 		//just one pizzaiolo for initial tests
 		processedOrders = 0;
 		
 		this.ciro = manager;
-		pizzaioli = new Pizzaiolo[2];
-		pizzaioliThreads = new Thread[2];
+		pizzaioli = new Pizzaiolo[numberOfPizzaioli];
+		pizzaioliThreads = new Thread[numberOfPizzaioli];
 		for (int i = 0; i < numberOfPizzaioli; i++) {
 			pizzaioli[i] = new Pizzaiolo(getRandomName(), i, ciro);
 			pizzaioliThreads[i] = new Thread(pizzaioli[i]);
@@ -35,12 +36,15 @@ class Pizzeria implements Runnable, OrderListener {
 	
 	@Override
 	public void run() {
+		//starts the execution of all the threads created with the Pizzaioli runnables.
 		for (Thread th: pizzaioliThreads) {
 			th.start();
 		}
 		
-		Thread shopManager = new Thread(() -> {
-			while (arePizzaioliThreadsAlive()) {
+		//anonymous runnable that checks whether if there is at least one pizzaiolo that is still alive and executing its task. If not every thread
+		// has finished, this thread waits until all the pizzaioli finished. Then it closes the pizzeria
+		new Thread( () -> {
+			while (!arePizzaioliThreadsTerminated()) {
 				try {
 					wait();
 				} catch (InterruptedException e) {
@@ -52,9 +56,13 @@ class Pizzeria implements Runnable, OrderListener {
 		
 	}
 	
-	private boolean arePizzaioliThreadsAlive()  {
+	/**
+	 * checks if all the threads of the pizzaioli are still running
+	 * @return false when at least one the pizzaioli is still alive and still not terminated
+	 */
+	private boolean arePizzaioliThreadsTerminated()  {
 		for (int i = 0; i < numberOfPizzaioli; i++) {
-			if (!pizzaioliThreads[i].isAlive()) return false;
+			if (pizzaioliThreads[i].isAlive()) return false;
 		}
 		return true;
 	}
@@ -68,15 +76,11 @@ class Pizzeria implements Runnable, OrderListener {
 	@Override
 	public void onOrderReceived(Client client, Order order) {
 		System.out.println("order received from client#" + client.getIdClient());
-		try {
-			this.ciro.assignOrder(order);
-			processedOrders++;
-			if (processedOrders == GennaroTheClientManager.numberOfClients) {
-				ciro.closeShop();
-				notifyAll();
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		this.ciro.assignOrder(order);
+		processedOrders++;
+		if (processedOrders == GennaroTheClientManager.numberOfClients) {
+			ciro.closeShop();
+			notifyAll();
 		}
 	}
 	
