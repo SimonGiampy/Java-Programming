@@ -7,7 +7,7 @@ import java.util.Random;
  * dances every time with a newly assigned dame. This class is coupled with DanceFloor class, so it gets the dame that
  * the main class chooses, among the free waiting dames.
  */
-public class Gentleman implements Runnable {
+class Gentleman implements Runnable {
 	
 	private GentlemanStages stage;
 	private final int id;

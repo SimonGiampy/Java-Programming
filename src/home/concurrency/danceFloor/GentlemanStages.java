@@ -3,7 +3,7 @@ package home.concurrency.danceFloor;
 /**
  * enumeration containing the descriptions of the possible situations in which a gentleman can be
  */
-public enum GentlemanStages {
+enum GentlemanStages {
 	
 	IN_CRISIS("being in crisis"), DANCING("coupled with a dame"),
 		LONELY("feeling lonely without a dame");

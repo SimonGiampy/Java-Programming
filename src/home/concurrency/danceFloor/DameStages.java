@@ -1,6 +1,6 @@
 package home.concurrency.danceFloor;
 
-public enum DameStages {
+enum DameStages {
 	//currently unused enumeration, but can be implemented if the dames are transformed into their own runnable threads
 	
 	WAITING("waiting for dance companion"), DANCING("dancing with a gentleman"),

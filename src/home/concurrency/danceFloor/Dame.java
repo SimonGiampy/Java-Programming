@@ -3,7 +3,7 @@ package home.concurrency.danceFloor;
 /**
  * basic class containing the id number of the dame dancing
  */
-public class Dame {
+class Dame {
 	
 	String name;
 	private final int number;

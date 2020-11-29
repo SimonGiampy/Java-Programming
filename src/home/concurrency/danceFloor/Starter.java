@@ -3,7 +3,7 @@ package home.concurrency.danceFloor;
 /**
  * class with main method that initialize the dance floor and sets the number of participants of the ballet
  */
-public class Starter {
+class Starter {
 	
 	public static void main(String[] args) {
 		System.out.println("initialing dance session");

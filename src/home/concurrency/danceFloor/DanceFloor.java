@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * handles the requests of the Gentleman dancing and moves around the Dames
  */
-public class DanceFloor {
+class DanceFloor {
 	
 	ArrayList<Dame> waitingDames;
 	ArrayList<Dame> dancingDames;
