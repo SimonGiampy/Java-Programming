@@ -7,7 +7,7 @@ import java.util.concurrent.*;
  */
 class GennaroTheClientManager {
 	
-	protected final static int numberOfClients = 4;
+	protected final static int numberOfClients = 6;
 	
 	//list of names for the clients
 	private final String[] clientNames = {"Fricca 'o ncapac",  "nonno Prullo", "Peppe 'o Murator", "Roccu u zimbaru",
@@ -34,8 +34,8 @@ class GennaroTheClientManager {
 			schedule.schedule(() -> {
 				Client client = new Client(getRandomName(), finalI);
 				client.setOrderMadeListener(pizzeria);
-				client.run();
-			}, i * spawnDelay, TimeUnit.MILLISECONDS);
+				new Thread(client).start();
+			}, (long) i * spawnDelay, TimeUnit.MILLISECONDS);
 			//schedules the execution with a delay proportional to the number of client to be spawned
 			//the schedule for every execution is computed ad the start for every runnable thread
 		}

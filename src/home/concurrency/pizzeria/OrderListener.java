@@ -3,7 +3,7 @@ package home.concurrency.pizzeria;
 /**
  * this interface serves for the Observer design pattern. It is the function called for the custom made event
  */
-public interface OrderListener {
+interface OrderListener {
 	
 	/**
 	 * this method is the core of the Observer design pattern. When the order is made, the Client class calls this method.

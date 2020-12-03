@@ -2,14 +2,13 @@ package home.concurrency.pizzeria;
 
 class Pizzeria implements Runnable, OrderListener {
 	
-	private final int numberOfPizzaioli = 2;
+	private final int numberOfPizzaioli = 3;
 	private int processedOrders;
 	
-	private Thread[] pizzaioliThreads;
-	private Pizzaiolo[] pizzaioli;
+	private final Thread[] pizzaioliThreads;
 	
 	private final CiroTheOrderManager ciro;
-	
+	private boolean shopClosed;
 	
 	private final String[] namesPizzaioli = {"Gennaro 'o biondo", "Leonardo", "Ciro 'o svitat'", "Ciruzz 'o cicat",
 			"Gennarino 'o milanes", "Genny 'o pompat", "Giuanni u' bucagummi", "Pascal", "Pino 'o luord",
@@ -18,17 +17,19 @@ class Pizzeria implements Runnable, OrderListener {
 	
 	/**
 	 * default constructor with default parameters, used for initial testing
-	 * @param manager the unique instance for the order manager
 	 */
-	protected Pizzeria(CiroTheOrderManager manager) {
+	protected Pizzeria() {
 		//just one pizzaiolo for initial tests
 		processedOrders = 0;
+		this.shopClosed = false;
 		
-		this.ciro = manager;
-		pizzaioli = new Pizzaiolo[numberOfPizzaioli];
+		//this.ciro = manager;
+		this.ciro = new CiroTheOrderManager(this);
+		
+		Pizzaiolo[] pizzaioli = new Pizzaiolo[numberOfPizzaioli];
 		pizzaioliThreads = new Thread[numberOfPizzaioli];
 		for (int i = 0; i < numberOfPizzaioli; i++) {
-			pizzaioli[i] = new Pizzaiolo(getRandomName(), i, ciro);
+			pizzaioli[i] = new Pizzaiolo(getRandomName(), i, ciro, this);
 			pizzaioliThreads[i] = new Thread(pizzaioli[i]);
 		}
 		
@@ -74,12 +75,12 @@ class Pizzeria implements Runnable, OrderListener {
 	 * @param client the client who makes the order
 	 */
 	@Override
-	public void onOrderReceived(Client client, Order order) {
+	public synchronized void onOrderReceived(Client client, Order order) {
 		System.out.println("order received from client#" + client.getIdClient());
 		this.ciro.assignOrder(order);
 		processedOrders++;
 		if (processedOrders == GennaroTheClientManager.numberOfClients) {
-			ciro.closeShop();
+			this.closeShop();
 			notifyAll();
 		}
 	}
@@ -93,5 +94,12 @@ class Pizzeria implements Runnable, OrderListener {
 		return namesPizzaioli[(int) pos];
 	}
 	
+	private void closeShop() {
+		this.shopClosed = true;
+	}
+	
+	protected boolean isShopClosed() {
+		return this.shopClosed;
+	}
 	
 }

@@ -6,16 +6,18 @@ class Pizzaiolo implements Runnable {
 	private final int idPizzaiolo;
 	
 	private Order currentOrder;
-	private Pizzeria pizzeria;
+	private final Pizzeria pizzeria;
 	
 	private final CiroTheOrderManager ciro;
 	
-	protected Pizzaiolo(String name, int idNumber, CiroTheOrderManager manager) {
+	protected Pizzaiolo(String name, int idNumber, CiroTheOrderManager manager, Pizzeria pizzeria) {
 		this.name = name;
 		this.idPizzaiolo = idNumber;
 		this.currentOrder = null;
 		this.ciro = manager;
+		this.pizzeria = pizzeria;
 	}
+	
 	
 	/**
 	 * If this thread was constructed using a separate {@code Runnable} run object, then that {@code Runnable} object's {@code run} method is called;
@@ -23,7 +25,8 @@ class Pizzaiolo implements Runnable {
 	 */
 	@Override
 	public void run() {
-		while (!ciro.isShopClosed() || !ciro.isQueueEmpty()) {
+		//TODO: reformat this so the check for the shop closed and empty queue happens ONLY via Condition objects inside the order manager class
+		while (!pizzeria.isShopClosed()) {
 			try {
 				this.currentOrder = ciro.takeOrder();
 				long waitingTime = (long) (Math.random() * 1000) + 100;
@@ -31,7 +34,7 @@ class Pizzaiolo implements Runnable {
 				//TODO: add dynamic assignment of processing time based on the order made.
 				Thread.sleep(waitingTime); //processing time
 			} catch (InterruptedException ignored) {
-			
+				
 			}
 			
 		}
