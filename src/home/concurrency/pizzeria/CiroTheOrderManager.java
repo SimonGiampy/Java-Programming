@@ -2,19 +2,60 @@ package home.concurrency.pizzeria;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * this class' purpose is to handle the transfer of the orders from the pizzeria to the pizzaioli. Its job is to assign the orders to the right
  * pizzaioli according to who is free or not. The orders are inserted in a queue that follows the FIFO principlce.
  */
 class CiroTheOrderManager {
-
-	//this is the queue that contains all the orders made
-	private Queue<Order> orders;
 	
 	//this field is set to true by the pizzeria when it is about to close
-	private boolean shopClosed;
 	
+	private ReentrantLock lock; //lock shared between the methods in this class, without the need of the synchronized methods
+	private Condition isEmptyCondition; //condition asserted when the queue is empty
+	//this is the queue that contains all the orders made
+	private Queue<Order> orderQueue; // FIFO principle
+	private Pizzeria pizzeria;
+	
+	protected CiroTheOrderManager(Pizzeria pizzeria) {
+		this.lock = new ReentrantLock();
+		this.isEmptyCondition = lock.newCondition();
+		this.orderQueue = new LinkedList<>(); //most optimized data structure for handling queues
+		this.pizzeria = pizzeria;
+		
+	}
+	
+	protected void assignOrder(Order order) {
+		lock.lock();
+		try {
+			orderQueue.add(order);
+			isEmptyCondition.signalAll();
+		} finally {
+			lock.unlock();
+		}
+	}
+	
+	protected Order takeOrder() {
+		lock.lock();
+		Order order = null;
+		try {
+			while (orderQueue.isEmpty() && !pizzeria.isShopClosed()) {
+				isEmptyCondition.await();
+			}
+			order = orderQueue.remove();
+		} catch (InterruptedException exception) {
+			exception.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+		assert order != null;
+		return order;
+	}
+	
+	/*
+	//OLD CODE
 	
 	protected CiroTheOrderManager() {
 		orders = new LinkedList<>();
@@ -37,20 +78,9 @@ class CiroTheOrderManager {
 			wait();
 		}
 		
-		notifyAll();
+		//notifyAll();
 		return this.orders.remove();
 	}
-	
-	protected void closeShop() {
-		this.shopClosed = true;
-	}
-	
-	protected boolean isShopClosed() {
-		return this.shopClosed;
-	}
-	
-	protected boolean isQueueEmpty() {
-		return orders.isEmpty();
-	}
+	 */
 
 }
