@@ -1,4 +1,4 @@
-package home.generics.intervals;
+package home.genericTypes.intervals;
 
 import java.util.ArrayList;
 import java.util.Scanner;

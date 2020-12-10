@@ -1,4 +1,4 @@
-package home.generics.intervals;
+package home.genericTypes.intervals;
 
 /**
  * This generic class handles pairs of objects, which are unknown to this class, since their behavior is independent from

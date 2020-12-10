@@ -1,4 +1,4 @@
-package home.generics.intervals;
+package home.genericTypes.intervals;
 
 /**
  * Time format= hours:minutes:seconds
