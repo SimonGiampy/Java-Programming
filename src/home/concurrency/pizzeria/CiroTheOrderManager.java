@@ -41,8 +41,15 @@ class CiroTheOrderManager {
 		lock.lock();
 		Order order = null;
 		try {
-			while (orderQueue.isEmpty() && !pizzeria.isShopClosed()) {
-				isEmptyCondition.await();
+			while (orderQueue.isEmpty() ) {
+				isEmptyCondition.await(); //signal to pizzaioli threads
+				
+				//this must be changed because it does not work
+				/*
+				pizzeria.mainLock.lock();
+				pizzeria.emptyOrdersQueueCondition.signalAll(); //signal to pizzeria thread for terminating everything
+				pizzeria.mainLock.unlock();
+				 */
 			}
 			order = orderQueue.remove();
 		} catch (InterruptedException exception) {
@@ -55,7 +62,7 @@ class CiroTheOrderManager {
 	}
 	
 	/*
-	//OLD CODE
+	//OLD VERSION CODE (with wait and notify methods)
 	
 	protected CiroTheOrderManager() {
 		orders = new LinkedList<>();
@@ -82,5 +89,9 @@ class CiroTheOrderManager {
 		return this.orders.remove();
 	}
 	 */
+	
+	protected boolean isQueueEmpty() {
+		return orderQueue.isEmpty();
+	}
 
 }
