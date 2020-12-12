@@ -1,29 +1,29 @@
-package home.designPatterns.abstractFactory;
+package home.designPatterns.abstractFactory_builder;
 
-class HybridCityCar implements HybridCar {
+class HybridCoupeCar implements HybridCar {
 	
 	private String color;
-	protected HybridCityCar(String color) {
+	protected HybridCoupeCar(String color) {
 		this.color = color;
 	}
 	
 	@Override
 	public String getBaseColor() {
-		return "green";
+		return "purple";
 	}
 	
 	@Override
 	public String getModelName() {
-		return "mercedes benz";
+		return "porsche panamera";
 	}
 	
 	@Override
 	public int getTopSpeed() {
-		return 210;
+		return 230;
 	}
 	
 	@Override
 	public double getElectricAutonomy() {
-		return 160;
+		return 100;
 	}
 }

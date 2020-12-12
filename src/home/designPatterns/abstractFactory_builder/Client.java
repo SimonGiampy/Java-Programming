@@ -1,4 +1,4 @@
-package home.designPatterns.abstractFactory;
+package home.designPatterns.abstractFactory_builder;
 
 import java.util.Scanner;
 
@@ -18,16 +18,21 @@ class Client {
 		int budget = scanner.nextInt();
 		
 		
-		//TODO: create an object of the desired class based on the input, using the factories for each parameter. The factories will choose the
+		//creates an object of the desired class based on the input, using the factories for each parameter. The factories will choose the
 		// right model based on the budget given in input. Greater budget will return more expensive car models.
 		
+		//Abstract factory design pattern concurrently with builder design pattern in action here
 		CarSeller seller = new CarSeller(budget);
 		seller = seller.setCarColor(color).setCarEngineType(engine);
-		ElectricCar car = seller.buildCar();
+		Car newCar;
 		
+		switch (engine) {
+			case 1 -> newCar = new ElectricCarBuilder(seller).build();
+			case 2 -> newCar = new GasCarBuilder(seller).build();
+			default -> newCar = new HybridCarBuilder(seller).build();
+		}
 		
-		
-		//TODO: make it return a pre defined name for the chosen type of car: an example would be
-		//  input = electric sports white -> output = "white tesla roadster"
+		System.out.println("I can sell you a " + newCar.getModelName() + " with top speed of " + newCar.getTopSpeed() +
+				" whose base color is " + newCar.getBaseColor() + " for the price you asked");
 	}
 }

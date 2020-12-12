@@ -1,4 +1,4 @@
-package home.designPatterns.abstractFactory;
+package home.designPatterns.abstractFactory_builder;
 
 interface GasCar extends Car {
 	int getTankCapacity();
