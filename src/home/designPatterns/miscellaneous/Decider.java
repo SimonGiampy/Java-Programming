@@ -9,9 +9,11 @@ import java.util.stream.Stream;
 class Decider implements ReceiverListener {
 	
 	private final Context context;
+	private final CommandHistory history;
 
 	protected Decider() {
 		this.context = new Context();
+		history = new CommandHistory();
 	}
 	
 	/**
@@ -33,6 +35,8 @@ class Decider implements ReceiverListener {
 		}
 		
 		command.archive();
+		
+		history.push(command.clone()); //copies the object and stores it in the history so the original Command object gets a backup
 		System.out.printf("elaborated number with strategy %d: %f\n", pick, context.execute(command.getNumbers()));
 	}
 	
