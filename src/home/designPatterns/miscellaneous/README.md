@@ -4,6 +4,9 @@
 + Strategy
 + Observer
 + Command
++ Prototype
+
+-------------------------------------------
 
 #### Exercise Description:
  
@@ -21,9 +24,14 @@ will switch between its possible states dynamically. It also executes the action
 
 The set of possible **Strategies** should be implemented in the code, so that it can be expanded easily without the need of coding everything again.
 
+Every object passed to the recipient class is **cloned** using the Prototype design pattern. The duplication serves for storing copies of the 
+command objects for a later retrieval, without losing any important data.
+
+-------------------------------------------
+
 #### Exercise Objectives:
 
 **The purpose of this exercise** is to use multiple design patterns and make them collaborate dynamically, while maintaining the code in order and 
-allowing ease of code expansion. The classes should be structured so that adding new States, or making new Command objects (with different 
-parameters) should be straight-forward, while avoiding coding unnecessary classes and avoiding redundant calls in every structure.
+allowing ease of code expansion. The classes should be structured so that adding new Strategies, or making new types of Command objects (with 
+different parameters) should be straight-forward, while avoiding coding unnecessary classes and avoiding redundant calls in every structure.
 
