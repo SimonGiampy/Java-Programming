@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>home.designPatterns.miscellaneous</OriginalElement>
+  <nodes>
+    <node x="0.0" y="623.0">home.designPatterns.miscellaneous.AverageStrategy</node>
+    <node x="319.0" y="623.0">home.designPatterns.miscellaneous.SquareRootStrategy</node>
+    <node x="159.5" y="510.0">home.designPatterns.miscellaneous.Strategy</node>
+    <node x="0.0" y="758.0">home.designPatterns.miscellaneous.Context</node>
+    <node x="0.0" y="323.0">home.designPatterns.miscellaneous.DuplicateCommand</node>
+    <node x="624.0" y="758.0">home.designPatterns.miscellaneous.Sender</node>
+    <node x="719.0" y="113.0">home.designPatterns.miscellaneous.Decider</node>
+    <node x="359.0" y="323.0">home.designPatterns.miscellaneous.CancelCommand</node>
+    <node x="312.0" y="758.0">home.designPatterns.miscellaneous.CommandHistory</node>
+    <node x="209.5" y="0.0">home.designPatterns.miscellaneous.Command</node>
+    <node x="727.0" y="0.0">home.designPatterns.miscellaneous.ReceiverListener</node>
+    <node x="663.0" y="510.0">home.designPatterns.miscellaneous.Generator</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="home.designPatterns.miscellaneous.Decider" target="home.designPatterns.miscellaneous.ReceiverListener">
+      <point x="0.0" y="-84.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.miscellaneous.DuplicateCommand" target="home.designPatterns.miscellaneous.Command">
+      <point x="0.0" y="-71.0" />
+      <point x="169.5" y="298.0" />
+      <point x="276.25" y="298.0" />
+      <point x="-66.75" y="136.5" />
+    </edge>
+    <edge source="home.designPatterns.miscellaneous.SquareRootStrategy" target="home.designPatterns.miscellaneous.Strategy">
+      <point x="0.0" y="-45.0" />
+      <point x="468.5" y="598.0" />
+      <point x="383.75" y="598.0" />
+      <point x="74.75" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.miscellaneous.AverageStrategy" target="home.designPatterns.miscellaneous.Strategy">
+      <point x="0.0" y="-45.0" />
+      <point x="149.5" y="598.0" />
+      <point x="234.25" y="598.0" />
+      <point x="-74.75" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.miscellaneous.CancelCommand" target="home.designPatterns.miscellaneous.Command">
+      <point x="0.0" y="-71.0" />
+      <point x="516.5" y="298.0" />
+      <point x="409.75" y="298.0" />
+      <point x="66.75" y="136.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="339.5" y="521.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
