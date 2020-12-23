@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>home.designPatterns.abstractFactory_builder</OriginalElement>
+  <nodes>
+    <node x="399.0" y="518.0">home.designPatterns.abstractFactory_builder.CarModelsFactory</node>
+    <node x="1817.0" y="278.0">home.designPatterns.abstractFactory_builder.HybridSportsCar</node>
+    <node x="304.0" y="843.0">home.designPatterns.abstractFactory_builder.CarFactoryProvider</node>
+    <node x="261.0" y="165.0">home.designPatterns.abstractFactory_builder.GasCar</node>
+    <node x="2088.0" y="278.0">home.designPatterns.abstractFactory_builder.HybridCityCar</node>
+    <node x="717.0" y="278.0">home.designPatterns.abstractFactory_builder.ElectricSportsCar</node>
+    <node x="1050.0" y="0.0">home.designPatterns.abstractFactory_builder.Car</node>
+    <node x="1046.0" y="165.0">home.designPatterns.abstractFactory_builder.ElectricCar</node>
+    <node x="798.0" y="683.0">home.designPatterns.abstractFactory_builder.SportsCarFactory</node>
+    <node x="1004.0" y="278.0">home.designPatterns.abstractFactory_builder.ElectricCoupeCar</node>
+    <node x="399.0" y="683.0">home.designPatterns.abstractFactory_builder.CoupeCarFactory</node>
+    <node x="1222.0" y="518.0">home.designPatterns.abstractFactory_builder.CarSeller</node>
+    <node x="632.0" y="843.0">home.designPatterns.abstractFactory_builder.Client</node>
+    <node x="470.0" y="278.0">home.designPatterns.abstractFactory_builder.GasSportsCar</node>
+    <node x="239.0" y="278.0">home.designPatterns.abstractFactory_builder.GasCityCar</node>
+    <node x="1831.0" y="165.0">home.designPatterns.abstractFactory_builder.HybridCar</node>
+    <node x="0.0" y="843.0">home.designPatterns.abstractFactory_builder.GasCarBuilder</node>
+    <node x="0.0" y="278.0">home.designPatterns.abstractFactory_builder.GasCoupeCar</node>
+    <node x="1283.0" y="278.0">home.designPatterns.abstractFactory_builder.ElectricCityCar</node>
+    <node x="1574.0" y="518.0">home.designPatterns.abstractFactory_builder.ElectricCarBuilder</node>
+    <node x="1918.0" y="518.0">home.designPatterns.abstractFactory_builder.HybridCarBuilder</node>
+    <node x="0.0" y="683.0">home.designPatterns.abstractFactory_builder.CityCarFactory</node>
+    <node x="1554.0" y="278.0">home.designPatterns.abstractFactory_builder.HybridCoupeCar</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="home.designPatterns.abstractFactory_builder.HybridCar" target="home.designPatterns.abstractFactory_builder.Car">
+      <point x="0.0" y="-31.5" />
+      <point x="1942.5" y="140.0" />
+      <point x="1189.1666666666667" y="140.0" />
+      <point x="55.66666666666674" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.ElectricSportsCar" target="home.designPatterns.abstractFactory_builder.ElectricCar">
+      <point x="0.0" y="-97.5" />
+      <point x="850.5" y="253.0" />
+      <point x="1075.1666666666667" y="253.0" />
+      <point x="-58.333333333333314" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.ElectricCar" target="home.designPatterns.abstractFactory_builder.Car">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.GasCoupeCar" target="home.designPatterns.abstractFactory_builder.GasCar">
+      <point x="0.0" y="-97.5" />
+      <point x="109.5" y="253.0" />
+      <point x="288.83333333333326" y="253.0" />
+      <point x="-55.66666666666674" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.HybridSportsCar" target="home.designPatterns.abstractFactory_builder.HybridCar">
+      <point x="0.0" y="-97.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.ElectricCityCar" target="home.designPatterns.abstractFactory_builder.ElectricCar">
+      <point x="0.0" y="-97.5" />
+      <point x="1408.5" y="253.0" />
+      <point x="1191.8333333333335" y="253.0" />
+      <point x="58.33333333333337" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.CityCarFactory" target="home.designPatterns.abstractFactory_builder.CarModelsFactory">
+      <point x="0.0" y="-57.5" />
+      <point x="189.5" y="658.0" />
+      <point x="462.1666666666667" y="658.0" />
+      <point x="-126.33333333333331" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.GasSportsCar" target="home.designPatterns.abstractFactory_builder.GasCar">
+      <point x="0.0" y="-97.5" />
+      <point x="583.5" y="253.0" />
+      <point x="400.16666666666674" y="253.0" />
+      <point x="55.66666666666674" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.CoupeCarFactory" target="home.designPatterns.abstractFactory_builder.CarModelsFactory">
+      <point x="0.0" y="-57.5" />
+      <point x="0.0" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.HybridCityCar" target="home.designPatterns.abstractFactory_builder.HybridCar">
+      <point x="0.0" y="-97.5" />
+      <point x="2205.5" y="253.0" />
+      <point x="2016.8333333333333" y="253.0" />
+      <point x="74.33333333333326" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.GasCar" target="home.designPatterns.abstractFactory_builder.Car">
+      <point x="0.0" y="-31.5" />
+      <point x="344.5" y="140.0" />
+      <point x="1077.8333333333333" y="140.0" />
+      <point x="-55.66666666666674" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.GasCityCar" target="home.designPatterns.abstractFactory_builder.GasCar">
+      <point x="0.0" y="-97.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.ElectricCoupeCar" target="home.designPatterns.abstractFactory_builder.ElectricCar">
+      <point x="0.0" y="-97.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.SportsCarFactory" target="home.designPatterns.abstractFactory_builder.CarModelsFactory">
+      <point x="0.0" y="-57.5" />
+      <point x="987.5" y="658.0" />
+      <point x="714.8333333333333" y="658.0" />
+      <point x="126.33333333333326" y="57.5" />
+    </edge>
+    <edge source="home.designPatterns.abstractFactory_builder.HybridCoupeCar" target="home.designPatterns.abstractFactory_builder.HybridCar">
+      <point x="0.0" y="-97.5" />
+      <point x="1675.5" y="253.0" />
+      <point x="1868.1666666666667" y="253.0" />
+      <point x="-74.33333333333326" y="31.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6052069995731968" x="1161.5" y="480.0" />
+  <SelectedNodes>
+    <node>home.designPatterns.abstractFactory_builder.CarModelsFactory</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
