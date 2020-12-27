@@ -1,0 +1,620 @@
+running thread #1
+running thread #9
+running thread #8
+running thread #7
+running thread #6
+running thread #3
+running thread #5
+running thread #4
+running thread #0
+running thread #2
+#5 takes their chop 5
+#3 takes their chop 3
+#7 takes their chop 7
+#8 takes their chop 8
+#9 takes their chop 9
+#7 acquired the chop 6
+#3 acquired the chop 2
+#5 acquired the chop 4
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#9 acquired the chop 0
+#1 takes their chop 1
+#2 takes their chop 2
+#7 leaves all their chops (7 , 6)
+#6 takes their chop 6
+#5 leaves all their chops (5 , 4)
+#6 acquired the chop 5
+#4 takes their chop 4
+#4 acquired the chop 3
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#8 takes their chop 8
+#8 acquired the chop 7
+#9 leaves all their chops (9 , 0)
+#0 takes their chop 0
+#0 acquired the chop 9
+#6 leaves all their chops (6 , 5)
+#5 takes their chop 5
+#4 leaves all their chops (4 , 3)
+#3 takes their chop 3
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#5 takes their chop 5
+#5 acquired the chop 4
+#8 leaves all their chops (8 , 7)
+#8 takes their chop 8
+#7 takes their chop 7
+#7 acquired the chop 6
+#7 leaves all their chops (7 , 6)
+#8 acquired the chop 7
+#1 acquired the chop 0
+#0 leaves all their chops (0 , 9)
+#9 takes their chop 9
+#6 takes their chop 6
+#5 leaves all their chops (5 , 4)
+#3 acquired the chop 4
+#6 acquired the chop 5
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#1 leaves all their chops (1 , 0)
+#9 acquired the chop 0
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#7 acquired the chop 8
+#3 leaves all their chops (3 , 4)
+#4 takes their chop 4
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#6 leaves all their chops (6 , 5)
+#6 takes their chop 6
+#5 takes their chop 5
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#6 acquired the chop 5
+#1 takes their chop 1
+#9 leaves all their chops (9 , 0)
+#0 takes their chop 0
+#0 acquired the chop 9
+#2 takes their chop 2
+#1 acquired the chop 0
+#0 leaves all their chops (0 , 9)
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#1 leaves all their chops (1 , 0)
+#2 takes their chop 2
+#2 acquired the chop 1
+#0 takes their chop 0
+#0 acquired the chop 9
+#0 leaves all their chops (0 , 9)
+#7 leaves all their chops (7 , 8)
+#8 takes their chop 8
+#7 takes their chop 7
+#3 takes their chop 3
+#4 takes their chop 4
+#6 leaves all their chops (6 , 5)
+#5 takes their chop 5
+#7 acquired the chop 6
+#8 acquired the chop 9
+#2 leaves all their chops (2 , 1)
+#1 takes their chop 1
+#1 acquired the chop 0
+#3 acquired the chop 2
+#7 leaves all their chops (7 , 6)
+#6 takes their chop 6
+#8 leaves all their chops (8 , 9)
+#8 takes their chop 8
+#9 takes their chop 9
+#8 acquired the chop 7
+#3 leaves all their chops (3 , 2)
+#4 acquired the chop 3
+#0 takes their chop 0
+#2 takes their chop 2
+#2 acquired the chop 1
+#1 leaves all their chops (1 , 0)
+#3 takes their chop 3
+#5 acquired the chop 4
+#4 leaves all their chops (4 , 3)
+#5 leaves all their chops (5 , 4)
+#6 acquired the chop 5
+#3 acquired the chop 4
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#9 acquired the chop 8
+#2 leaves all their chops (2 , 1)
+#1 takes their chop 1
+#6 leaves all their chops (6 , 5)
+#5 takes their chop 5
+#7 acquired the chop 6
+#3 leaves all their chops (3 , 4)
+#3 takes their chop 3
+#3 acquired the chop 2
+#4 takes their chop 4
+#9 leaves all their chops (9 , 8)
+#9 takes their chop 9
+#8 takes their chop 8
+#7 leaves all their chops (7 , 6)
+#6 takes their chop 6
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#9 acquired the chop 8
+#3 leaves all their chops (3 , 2)
+#2 takes their chop 2
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#2 acquired the chop 3
+#2 leaves all their chops (2 , 3)
+#1 acquired the chop 2
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#5 takes their chop 5
+#5 acquired the chop 4
+#9 leaves all their chops (9 , 8)
+#8 takes their chop 8
+#0 acquired the chop 9
+#3 takes their chop 3
+#3 acquired the chop 4
+#2 takes their chop 2
+#1 leaves all their chops (1 , 2)
+#5 leaves all their chops (5 , 4)
+#2 acquired the chop 1
+#4 takes their chop 4
+#3 leaves all their chops (3 , 4)
+#4 acquired the chop 3
+#1 takes their chop 1
+#2 leaves all their chops (2 , 1)
+#0 leaves all their chops (0 , 9)
+#9 takes their chop 9
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+#7 acquired the chop 6
+#7 leaves all their chops (7 , 6)
+#8 acquired the chop 7
+#9 acquired the chop 0
+#5 takes their chop 5
+#1 takes their chop 1
+#2 takes their chop 2
+#3 takes their chop 3
+#5 acquired the chop 4
+#4 leaves all their chops (4 , 3)
+#6 takes their chop 6
+#7 takes their chop 7
+#8 leaves all their chops (8 , 7)
+#9 leaves all their chops (9 , 0)
+#1 acquired the chop 0
+#7 acquired the chop 8
+#5 leaves all their chops (5 , 4)
+#4 takes their chop 4
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+#6 takes their chop 6
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+#9 takes their chop 9
+#1 leaves all their chops (1 , 0)
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#0 takes their chop 0
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#3 takes their chop 3
+#3 acquired the chop 2
+#4 acquired the chop 5
+#4 leaves all their chops (4 , 5)
+#4 takes their chop 4
+#7 leaves all their chops (7 , 8)
+#8 takes their chop 8
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#0 acquired the chop 9
+#0 leaves all their chops (0 , 9)
+#5 takes their chop 5
+#6 takes their chop 6
+#1 takes their chop 1
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#2 takes their chop 2
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#3 leaves all their chops (3 , 2)
+#7 takes their chop 7
+#4 takes their chop 4
+#4 acquired the chop 3
+#8 takes their chop 8
+#9 takes their chop 9
+#0 takes their chop 0
+#0 acquired the chop 1
+#4 leaves all their chops (4 , 3)
+#3 takes their chop 3
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#2 takes their chop 2
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+#7 acquired the chop 6
+#7 leaves all their chops (7 , 6)
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#9 acquired the chop 8
+#3 acquired the chop 4
+#3 leaves all their chops (3 , 4)
+#2 acquired the chop 3
+#1 takes their chop 1
+#1 acquired the chop 0
+#0 leaves all their chops (0 , 1)
+#1 leaves all their chops (1 , 0)
+#4 takes their chop 4
+#5 takes their chop 5
+#6 takes their chop 6
+#7 takes their chop 7
+#9 leaves all their chops (9 , 8)
+#8 takes their chop 8
+#2 leaves all their chops (2 , 3)
+#3 takes their chop 3
+#3 acquired the chop 2
+#0 takes their chop 0
+#0 acquired the chop 9
+#0 leaves all their chops (0 , 9)
+#1 takes their chop 1
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#1 takes their chop 1
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#1 takes their chop 1
+#1 acquired the chop 0
+#8 acquired the chop 9
+#8 leaves all their chops (8 , 9)
+#7 acquired the chop 8
+#9 takes their chop 9
+#4 acquired the chop 3
+#3 leaves all their chops (3 , 2)
+#2 takes their chop 2
+#1 leaves all their chops (1 , 0)
+#9 acquired the chop 0
+#9 leaves all their chops (9 , 0)
+#9 takes their chop 9
+#2 acquired the chop 1
+#6 acquired the chop 7
+#8 takes their chop 8
+#7 leaves all their chops (7 , 8)
+#0 takes their chop 0
+#5 acquired the chop 4
+#3 takes their chop 3
+#4 leaves all their chops (4 , 3)
+#7 takes their chop 7
+#7 acquired the chop 6
+#0 acquired the chop 1
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#2 leaves all their chops (2 , 1)
+#6 leaves all their chops (6 , 7)
+#6 takes their chop 6
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#7 leaves all their chops (7 , 6)
+#7 takes their chop 7
+#9 acquired the chop 8
+#5 leaves all their chops (5 , 4)
+#4 takes their chop 4
+#4 acquired the chop 3
+#2 takes their chop 2
+#1 takes their chop 1
+#1 acquired the chop 0
+#0 leaves all their chops (0 , 1)
+#2 acquired the chop 1
+#1 leaves all their chops (1 , 0)
+#6 acquired the chop 5
+#9 leaves all their chops (9 , 8)
+#9 takes their chop 9
+#8 takes their chop 8
+#7 acquired the chop 6
+#6 leaves all their chops (6 , 5)
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#7 leaves all their chops (7 , 6)
+#7 takes their chop 7
+#7 acquired the chop 6
+#9 acquired the chop 8
+#4 leaves all their chops (4 , 3)
+#3 takes their chop 3
+#4 takes their chop 4
+#5 takes their chop 5
+#0 takes their chop 0
+#1 takes their chop 1
+#3 acquired the chop 2
+#2 leaves all their chops (2 , 1)
+#7 leaves all their chops (7 , 6)
+#7 takes their chop 7
+#0 acquired the chop 9
+#8 takes their chop 8
+#6 takes their chop 6
+#9 leaves all their chops (9 , 8)
+#3 leaves all their chops (3 , 2)
+#2 takes their chop 2
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#5 acquired the chop 4
+#0 leaves all their chops (0 , 9)
+#9 takes their chop 9
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#0 takes their chop 0
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#0 acquired the chop 1
+#3 takes their chop 3
+#3 acquired the chop 2
+#3 leaves all their chops (3 , 2)
+#5 leaves all their chops (5 , 4)
+#4 takes their chop 4
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#2 takes their chop 2
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+#7 acquired the chop 6
+#9 acquired the chop 0
+#1 takes their chop 1
+#1 acquired the chop 0
+#1 leaves all their chops (1 , 0)
+#1 takes their chop 1
+#1 acquired the chop 0
+#0 leaves all their chops (0 , 1)
+#0 takes their chop 0
+#2 acquired the chop 3
+#1 leaves all their chops (1 , 0)
+#8 acquired the chop 9
+#9 leaves all their chops (9 , 0)
+#0 acquired the chop 9
+#8 leaves all their chops (8 , 9)
+#1 takes their chop 1
+#2 leaves all their chops (2 , 3)
+#8 takes their chop 8
+#2 takes their chop 2
+#3 takes their chop 3
+#5 takes their chop 5
+#4 takes their chop 4
+#7 leaves all their chops (7 , 6)
+#8 acquired the chop 7
+#6 takes their chop 6
+#1 acquired the chop 0
+#9 takes their chop 9
+#0 leaves all their chops (0 , 9)
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#2 takes their chop 2
+#2 acquired the chop 1
+#2 leaves all their chops (2 , 1)
+#1 leaves all their chops (1 , 0)
+#0 takes their chop 0
+#3 acquired the chop 2
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#0 acquired the chop 9
+#8 takes their chop 8
+#1 takes their chop 1
+#4 acquired the chop 3
+#2 takes their chop 2
+#3 leaves all their chops (3 , 2)
+#0 leaves all their chops (0 , 9)
+#8 acquired the chop 9
+#1 acquired the chop 0
+#4 leaves all their chops (4 , 3)
+#2 acquired the chop 3
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#5 takes their chop 5
+#5 acquired the chop 4
+#0 takes their chop 0
+#7 acquired the chop 8
+#9 takes their chop 9
+#8 leaves all their chops (8 , 9)
+#1 leaves all their chops (1 , 0)
+#0 acquired the chop 1
+#2 leaves all their chops (2 , 3)
+#3 takes their chop 3
+#3 acquired the chop 2
+#5 leaves all their chops (5 , 4)
+#4 takes their chop 4
+#6 acquired the chop 7
+#7 leaves all their chops (7 , 8)
+#5 takes their chop 5
+#8 takes their chop 8
+#0 leaves all their chops (0 , 1)
+#0 takes their chop 0
+#1 takes their chop 1
+#3 leaves all their chops (3 , 2)
+#2 takes their chop 2
+Philosopher #3 says goodnight
+#5 acquired the chop 6
+#7 takes their chop 7
+#7 acquired the chop 6
+#7 leaves all their chops (7 , 6)
+#6 leaves all their chops (6 , 7)
+#4 acquired the chop 5
+#5 leaves all their chops (5 , 6)
+#8 acquired the chop 7
+#8 leaves all their chops (8 , 7)
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#9 takes their chop 9
+#8 takes their chop 8
+#8 acquired the chop 7
+#2 acquired the chop 3
+#6 takes their chop 6
+#5 takes their chop 5
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#4 leaves all their chops (4 , 5)
+#4 takes their chop 4
+#6 acquired the chop 5
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#9 acquired the chop 8
+#2 leaves all their chops (2 , 3)
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#1 acquired the chop 2
+#1 leaves all their chops (1 , 2)
+#0 acquired the chop 1
+#0 leaves all their chops (0 , 1)
+#6 leaves all their chops (6 , 5)
+#6 takes their chop 6
+#5 takes their chop 5
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#6 acquired the chop 5
+#9 leaves all their chops (9 , 8)
+#8 takes their chop 8
+#4 takes their chop 4
+#4 acquired the chop 3
+#2 takes their chop 2
+#2 acquired the chop 1
+#0 takes their chop 0
+#0 acquired the chop 9
+#6 leaves all their chops (6 , 5)
+#5 takes their chop 5
+#7 acquired the chop 6
+#4 leaves all their chops (4 , 3)
+#1 takes their chop 1
+#5 acquired the chop 4
+#2 leaves all their chops (2 , 1)
+#1 acquired the chop 0
+#9 takes their chop 9
+#0 leaves all their chops (0 , 9)
+#7 leaves all their chops (7 , 6)
+#7 takes their chop 7
+#6 takes their chop 6
+#6 acquired the chop 5
+#4 takes their chop 4
+#4 acquired the chop 3
+#4 leaves all their chops (4 , 3)
+#5 leaves all their chops (5 , 4)
+#7 acquired the chop 6
+#6 leaves all their chops (6 , 5)
+#2 takes their chop 2
+#2 acquired the chop 1
+#1 leaves all their chops (1 , 0)
+#0 takes their chop 0
+#5 takes their chop 5
+#8 acquired the chop 7
+#6 takes their chop 6
+#4 takes their chop 4
+#4 acquired the chop 3
+#7 leaves all their chops (7 , 6)
+#1 takes their chop 1
+#2 leaves all their chops (2 , 1)
+#8 leaves all their chops (8 , 7)
+#7 takes their chop 7
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#0 acquired the chop 9
+#1 acquired the chop 2
+#1 leaves all their chops (1 , 2)
+Philosopher #1 says goodnight
+#7 acquired the chop 8
+#7 leaves all their chops (7 , 8)
+#6 acquired the chop 7
+#8 takes their chop 8
+#2 takes their chop 2
+#2 acquired the chop 1
+#4 leaves all their chops (4 , 3)
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#5 takes their chop 5
+#5 acquired the chop 4
+#5 leaves all their chops (5 , 4)
+#0 leaves all their chops (0 , 9)
+#9 takes their chop 9
+#6 leaves all their chops (6 , 7)
+#7 takes their chop 7
+#6 takes their chop 6
+#6 acquired the chop 5
+#9 acquired the chop 0
+#2 leaves all their chops (2 , 1)
+Philosopher #2 says goodnight
+#4 takes their chop 4
+#4 acquired the chop 3
+#9 leaves all their chops (9 , 0)
+#8 acquired the chop 9
+#7 acquired the chop 6
+#5 takes their chop 5
+#0 takes their chop 0
+#6 leaves all their chops (6 , 5)
+#9 takes their chop 9
+#9 acquired the chop 8
+#8 leaves all their chops (8 , 9)
+#4 leaves all their chops (4 , 3)
+#5 acquired the chop 4
+#0 acquired the chop 1
+#0 leaves all their chops (0 , 1)
+#9 leaves all their chops (9 , 8)
+#6 takes their chop 6
+#8 takes their chop 8
+#8 acquired the chop 7
+#7 leaves all their chops (7 , 6)
+#5 leaves all their chops (5 , 4)
+Philosopher #5 says goodnight
+#6 acquired the chop 5
+#4 takes their chop 4
+#4 acquired the chop 3
+#0 takes their chop 0
+#0 acquired the chop 9
+#6 leaves all their chops (6 , 5)
+#6 takes their chop 6
+#6 acquired the chop 5
+#8 leaves all their chops (8 , 7)
+Philosopher #8 says goodnight
+#7 takes their chop 7
+#4 leaves all their chops (4 , 3)
+Philosopher #4 says goodnight
+#0 leaves all their chops (0 , 9)
+#9 takes their chop 9
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#9 takes their chop 9
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+#7 acquired the chop 6
+#6 leaves all their chops (6 , 5)
+#7 leaves all their chops (7 , 6)
+Philosopher #7 says goodnight
+#6 takes their chop 6
+#6 acquired the chop 5
+#6 leaves all their chops (6 , 5)
+Philosopher #6 says goodnight
+#0 takes their chop 0
+#0 acquired the chop 9
+#0 leaves all their chops (0 , 9)
+#0 takes their chop 0
+#0 acquired the chop 9
+#0 leaves all their chops (0 , 9)
+Philosopher #0 says goodnight
+#9 takes their chop 9
+#9 acquired the chop 8
+#9 leaves all their chops (9 , 8)
+Philosopher #9 says goodnight
