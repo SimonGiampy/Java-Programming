@@ -52,10 +52,12 @@ class Philosopher implements Runnable {
 	}
 	
 	
-	
+	/**
+	 * this Runnable cycles between 3 states: Thinking - Hungry - Eating. Interacts with the class DiningTable for locking and unlocking the mutexes.
+	 */
 	@Override
 	public void run() {
-		System.out.printf("running thread #%d\n", pos);
+		System.out.printf("running thread #%d\n", pos); // started running, logging
 		long wait;
 		int rounds = 0;
 		
