@@ -1,0 +1,98 @@
+Si consideri il tipo di dato astratto Connect4 che modella una partita al noto
+gioco “Forza 4” (vedi figura a lato).
+
+Lo scopo del gioco `e allineare quattro pedine dello stesso colore nella scacchiera
+di gioco sia in verticale, orizzontale o obliquo. A questo scopo due giocatori (uno
+dotato di 21 pedine gialle, l’altro di 21 pedine rosse) si alternano facendo scivolare
+la pedina nei binari prestabiliti dalla scacchiera.
+Si supponga una dimensione della “griglia” come in figura (7 colonne per 6 righe).
+Una pedina viene depositata invocando il metodo put ed indicando la colonna in
+cui si vuole depositare la pedina (nell’intervallo 1-7) e l’identificativo del giocatore.
+I due giocatori sono convenzionalmente identificati dai valori interi 1 e 2. Il
+metodo get ritorna 0 se la cella indicata `e vuota, oppure 1 o 2 a seconda della pedina
+presente nella posizione indicata (del giocatore 1 o del giocatore 2). La cella
+in basso a sinistra ha posizione 1,1 (vedi figura).
+
+public class Connect4 {
+
+// Crea una partita vuota.
+public Connect4() ;
+
+// Deposita la pedina del giocatore player (1 o 2) nella colonna indicata.
+// Restituisce l’eccezione FullColumnException se la colonna `e piena.
+// Restituisce l’eccezione GameOverException se c’`e gi`a un vincitore.
+public void put(int column, int player) throws FullColumnException, GameOverException;
+
+// Restituisce 0 se la cella `e libera, 1 o 2 se `e occupata dalla pedina
+// del giocatore corrispondente. La posizione indicata deve appartenere
+// all’intervallo ammesso (1-7 x 1-6). La cella in basso a sinistra (vedi figura)
+// ha posizione 1,1.
+public /*@ pure @*/ int get(int column, int row) ;
+
+// Restituisce true sse c’`e un vincitore (4 pedine dello stesso giocatore allineate).
+public /*@ pure @*/ boolean winner() ;
+
+// Svuota la griglia dando inizio a una nuova partita.
+public void clear() ;
+
+}
+
+------------------------------------------------------------------------------------------------
+
+Domanda a)
+Si specifichino in JML i metodi put, winner e clear.
+
+1.
+// funzione di supporto che controlla che non ci siano stati cambiamenti nella posizione delle pedine
+//@unchanged() = (\forall int c; c>=1 && c<=7; (\forall int r; r>=1 && r<=6; get(c,r)==\old(get(c,r)) ))
+
+//@requires column >=1 && column <=7 && (player == 1 || player == 2)
+//@ensures !\old(winner()) && (* almeno un posto vuoto nella colonna ci deve essere per l'inserimento *)
+//@        (\numof int r=1; r>=1 && r<=6; \old(get(column, r)) == 0) >= 1 &&
+//@     get(column, player) == player && (* la pedina va posizionata nel posto richiesto *)
+//@     (\exists int row; (* il resto delle celle deve rimanere immutato *)
+//@             (\forall int r; r>=1 && r<row; \old(get(column,r)) != 0 ) &&
+//@             (\forall int c; c>=1 && c<=7; (\forall int r; r>=1 && r<=6;
+//@                     get(c,r) == \old(get(c,r)) || (r == row && c = column))))
+//@signals FullColumnException (\forall int r=1; r>=1 && r<=6; \old(get(column, r)) >= 1) &&
+//@         unchanged()
+//@signals GameOverException \old(winner()) && unchanged()
+public void put(int column, int player) throws FullColumnException, GameOverException;
+
+
+-> la @requires richiede che i parametri in ingresso siano consistenti non i parametri spcificati
+        per il gioco
+-> i commenti descrivono quello che la ensures deve verificare
+
+2.
+
+// Restituisce true sse c’`e un vincitore (4 pedine dello stesso giocatore allineate).
+//NOTA: 4 casi di vittoria possibili, identificate da pedine di uno stesso player:
+//      caso 1 = 4 pedine in orizzontale di fila
+//      caso 2 = 4 pedine in verticale di fila
+//      caso 3 = 4 pedine in obliquo sud ovest - nord est di fila
+//      caso 4 = 4 pedine in obliquo sud est - nord ovest di fila
+
+NO VABBE' LA SOLUZIONE E' INCREDIBILE, SONO DAVVERO MERAVIGLIATO, MOLTO ELEGANTE
+io non ci sarei mai riuscito
+
+public /*@ pure @*/ boolean winner() ;
+
+
+3.
+//@ensures (\forall int c; c>=1 && c<=7; (\forall int r; r>=1 && r<=6; get(c,r)==0 ))
+public void clear() ;
+
+Domanda B:
+Si specifichi in JML l’invariante pubblico del tipo Connect4.
+
+//NOTA: aspetti da verificare: player può essere uguale a 0,1,2.
+//      inoltre in ogni istante di tempo la differenza del numero di pedine di un giocatore e dell altro
+//      deve essere al massimo uno in valore assoluto. Questo perchè un giocatore deve aspettare l'altro
+//      prima di fare la mossa successiva e non si sa a priori chi ha cominciato
+
+//@public invariant
+//@     (\forall int c; c>=1 && c<=7; (\forall int r; r>=1 && r<=6;
+//@            get(c,r)==0 || get(c,r)==1 || get(c,r)==2 )) &&
+//@     -1 <= ( (\sumof int c; c>=1 && c<=7; (\numof int r; r>=1 && r<=6; get(c,r)==1))
+                 - (\sumof int c; c>=1 && c<=7; (\numof int r; r>=1 && r<=6; get(c,r)==2)) ) <= 1

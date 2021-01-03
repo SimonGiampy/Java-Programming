@@ -1,0 +1,67 @@
+Si consideri la seguente specifica di una classe mutabile Buffer, che rappresenta un buffer
+  di messaggi. Un messaggio è un elemento della classe Message, specificata pi`u avanti. Il buffer
+  permette l’inserimento di un messaggio in ultima posizione e la rimozione del messaggio in prima
+  posizione (spostando di conseguenza tutti i messaggi rimanenti di una posizione). Il buffer può
+  contenere al massimo maxBytes() byte.
+
+
+public class Buffer {
+//Costruisceunbuffer vuotochepuo’contenerealmassimomaxBytesbyte
+public Buffer(int maxBytes);
+
+//@ensures (∗ \result è il numero di messaggi nel buffer∗)
+public /∗@pure@∗/ int size();
+
+//@ensures (∗ \result è il messaggio i−esimo nel buffer se 0<=i<size()∗).
+//@signals (IndexOutOfBoundException e) (i<0|| i>=size());
+public /∗@pure@∗/ Message get(int i) throws IndexOutOfBoundException;
+
+//@ensures (∗\resulte’ilnumeromassimodibytecheilbufferpuo’contentere∗)
+public /∗@pure@∗/ int maxBytes();
+
+//@ensures (∗ inserisce un nuovo messaggio in ultima posizione ∗)
+//@signals (NullPointerException e) (∗ se il messaggio è null∗)
+//@signals (BufferFullException e ) (∗ se l’inserimento del messaggio farebbe superare il limite di byte ∗)
+public void push(Message m) throws NullPointerException, BufferFullException;
+
+//@ensures (∗ restituisce e rimuove il messaggio costenuto in prima posizione ∗)
+//@signals (BufferEmptyException e) (∗ se il buffer è vuoto∗);
+public Message pull() throws BufferEmptyException;
+
+}
+
+La classe immutabile Message è specificata:
+
+public /∗@pure@∗/ class Message{
+
+//costruisceunmessaggio
+public Message(String content);
+
+//restituisceilcontenutodelmessaggio
+public String getContent();
+
+//restituisceladimensione (in byte) del messaggio
+public int numBytes();
+}
+
+-----------------------------------------------------------------------------------------------------
+Domanda A: Si scriva la specifica JML del metodo push.
+
+
+//procedura extra di supporto
+//@ bufferSize() = (\sum int i; i>=0 && i<size(); get(i).numBytes())
+
+//@ensures m != null && (\old(bufferSize()) + m.numBytes() <= maxBytes()) && (size() == \old(size()) + 1) &&
+//@     (\forall int i; i>=0 && i<\old(size()); \old(get(i)) == get(i)) && (get(size() - 1) == m)
+//@signals (NullPointerException e) (m == null)
+//@signals (BufferFullException f) (bufferSize() + m.numBytes() > maxBytes())
+public void push(Message m) throws NullPointerException, BufferFullException;
+
+
+Domanda B: Si scriva la specifica JML del metodo pull.
+
+//@ensures size() > 0 && (\forall int i; i>=0 && i < \old(size()); \old(get(i+1)) == get(i)) &&
+//@     (\old(size()) == size() + 1) && \result = \old(get(0))
+//@signals (BufferEmptyException e) (\old(size()) <= 0 )
+public Message pull() throws BufferEmptyException;
+

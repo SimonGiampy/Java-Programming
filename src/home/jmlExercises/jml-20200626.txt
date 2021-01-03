@@ -1,0 +1,67 @@
+Tema 26 giugno 2020
+
+Si consideri la seguente specifica di una classe mutabile SequenzaVettori, che rappresenta una sequenza (senza
+duplicazioni) di vettori bidimensionali. Un vettore `e un elemento della classe Vettore, specificata pi`u avanti.
+
+public Class SequenzaVettori {
+
+    // @ensures (* \result e’ il numero di vettori della sequenza*)
+    public /*@pure@*/ int size();
+
+    // @ensures (* \result è il vettore i-esimo della sequenza se 0<=i<size()*)
+    // @signals (IndexOutOfBoundsException e) (i<0 || i>=size());
+    public /*@pure@*/ Vettore get(int i) throws IndexOutOfBoundsException;
+
+    // @ensures (* inserisce un nuovo elemento alla fine della sequenza *)
+    // @signals (DuplicateException e) (* eccezione se v esiste in this *)
+    public void put(Vettore v) throws DuplicateException;
+
+    // @ensures (* \result è il vettore costituito dalla somma dei primi k vettori della sequenza *)
+    // @signals (IndexOutOfBoundsException e) (k<2 || k>size());
+    public /*@pure@*/ Vettore sum(int k);
+
+}
+
+public /*@pure@*/ class Vettore  {
+
+    .....
+
+    //@ (* restituisce il vettore somma di this + v *)
+    public Vettore somma(Vettore v);
+}
+
+-----------------------------------------------------------------------------------------------
+
+Domanda A:
+Si scriva la specifica JML del metodo put.
+
+
+// @ensures size() == \old(size()) + 1 &&
+//@     (\forall int i; i>=0 && i < \old(size()); \old(!get(i).equals(v)) && get(i).equals(\old(get(i))))
+//@     get(size()-1).equals(v)
+// @signals (DuplicateException e) size() == \old(size()) &&
+//@     (\exists int i; i>=0 && i<size(); \old(get(i)).equals(v)) &&
+//@     (\forall int j; j>=0 && j<\old(size()); get(j).equals(\old(get(j))));
+public void put(Vettore v) throws DuplicateException;
+
+Domanda B:
+Si scriva la specifica JML del metodo sum.
+
+//@ (* \result è il vettore costituito dalla somma dei primi k vettori della sequenza *)
+// @ensures k>=2 && k <= size() &&
+//@     ( k==2 ==> \result.equals(get(0)).somma(get(i))))  (* caso base della ricorsione *)
+//@     && ( k>2 ==> \result.equals(sum(k-1).somma(get(k))) ); (* somma degli elementi precedenti con la ricorsione*)
+// @signals (IndexOutOfBoundsException e) (k<2 || k>size());
+public /*@pure@*/ Vettore sum(int k);
+
+//NOTA: dato che non si possono creare variabili in JML si usa la ricorsione per calcolare la somma
+//      matematica degli elementi in un array.
+
+Domanda C:
+Si consideri una variante SequenzaVettori2 della classe SequenzaVettori, che è identica alla classe precedente
+ma in cui la specifica di put è differente: put inserisce il vettore v in una posizione qualunque
+
+Si, SequenzaVettoriNew può essere superclasse di SequenzaVettori, in quanto il metodo put della classe originaria
+(sottoclasse) inserisce l'elemento sempre in coda, mentre la superclasse SVNew inserisce il nuovo elemento in una
+posizione qualsiasi. In questo modo il metodo put della sottoclasse ha un comportamento specificizzato rispetto a
+quello della superclasse (ovvero rimane compatibile con la superclasse). Non sarebbe vero il viceversa.

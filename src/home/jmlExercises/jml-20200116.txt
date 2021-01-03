@@ -1,0 +1,84 @@
+Esercizio 1
+Si consideri la seguente specifica di un dizionario: una struttura dati adatta a memorizzare un insieme finito di parole
+costruite a partire da un alfabeto.
+
+Si supponga che tutte le parole siano costituite esclusivamente dai 26 caratteri minuscoli (a, b, ..., x, y, z).
+NB: Per estrarre il carattere (di tipo char) in posizione i di una stringa word, si pu`o usare la notazione word.charAt(i),
+con i nell’intervallo 0...word.length()-1.
+
+Domanda A:
+Si specifichino in JML i metodi add, similar, e complete.
+
+
+public interface Dictionary {
+    // \result == true sse word è in this
+    public /*@pure@*/ boolean contains(String word);
+
+---
+    // aggiunge word al dizionario
+
+    //@requires word != null
+    //@ensures contains(word) &&
+    //@     (\forall String x; contains(x); word.equals(x) || \old(contains(x))) &&
+    //@     (\forall String x; \old(contains(x)); contains(x))
+    //@signals (NullPointerException e) (word == null  &&
+    //@     (\forall String x; ; \old(contains(x)) <==> contains(x)))
+    public void add(String word) throws NullPointerException;
+
+---
+    // \result==true se è presente nel dizionario una parola x della stessa
+    //      lunghezza di word che differisce al più di un carattere da word stessa
+
+    //@requires word != null
+    //@ensures \result == true <==> (\exists String x; contains(x) && x.length() == word.length() &&
+    //@     (\numof int i; i>=0 && i < x.length();  x.chartAt(i) != word.charAt(i)) <= 1)
+    public /*@pure@*/ boolean similar(String word);
+
+    // \result è una lista di tutte le parole nel dizionario che iniziano per prefix;
+    //      Se non ve n'è nessuna, \result è la lista vuota. La stringa prefix deve essere lunga
+    //      almeno tre caratteri
+
+    //@requires prefix != null && prefix.length() >= 3
+    //@ensures (\forall String x; this.contains(x) ; \result.contains(x) <==> x.startsWith(prefix))
+    public /*@pure@*/ List<String> complete(String prefix);
+
+}
+
+-------------------------------------------------------------------------------------------------------
+
+Domanda B
+Si consideri la seguente implementazione (parziale) di un dizionario, tramite una struttura
+dati comunemente nota come Trie. Un trie memorizza ogni parola del dizionario in un
+albero in modo da consentire una ricerca veloce. Ogni nodo dell’albero pu`o avere fino a
+26 figli, uno per ciascuna lettera. Ogni figlio di un nodo corrisponde a un carattere. Le
+parole sono lette partendo dalla radice e arrivando fino a un nodo marcato come “endof-
+word”. Tutte le foglie sono “end-of-word”, ma anche alcuni nodi intermedi possono
+esserlo. Un esempio di Trie `e mostrato in figura. La radice corrisponde alla parola
+vuota, che si assume faccia sempre parte del dizionario. In grigio sono raffigurati i nodi
+“end-of-word”. Le parole (non vuote) presenti sono: a, art, he, heat, hence
+
+Il metodo privato terminal permette di trovare il nodo che corrisponde al prefisso di una parola presente nel dizionario.
+E’ utile per implementare il metodo contains e gli altri metodi di Dictionary, che per semplicità non
+riportiamo.
+
+Scrivere un invariante di rappresentazione per la classe Trie. Si suggerisce di sfruttare il metodo privato (puro) terminal.
+
+//  2 controlli da fare:
+//  foglie sono tutte endWord; inoltre non ci sono stringhe diverse che terminano nello stesso nodo
+//@ private invariant (
+//@     root != null && root.end == true &&
+//@     ( \forall String x; terminal(x) != null; (\forall int i; i>=0 && i<=25;
+//@             terminal(x).next[i] == null) ==> terminal(x).next[i].end == true ))
+//@     ( \forall String x; terminal(x) != null; (\forall String y; terminal(y) != null;
+//@         !x.equals(y) ==> !terminal(x).equals(terminal(y)) )) )
+
+// alternativamente l'ultima condizione l'avrei scritta così, controllando che tutti i nodi figli
+//      di ogni nodo presente nell'albero siano diversi da tutti gli altri, in modo tale che non ci
+//      possano essere percorsi ripetuti che formano la stessa parola
+//@ (\forall String x; terminal(x) != null;
+//@         (\forall int i; i>=0 && i<=25; (\forall int j; j>=0 && j<=25;
+//@            i != j ==> terminal(x).next[i] != terminal(x).next[j] )))
+
+
+
+

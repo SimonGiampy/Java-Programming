@@ -1,0 +1,101 @@
+Si consideri la seguente specifica della classe BinaryTree che modella un albero binario
+di elementi (non nulli) di tipo T.
+
+public class BinaryTree<T> {
+
+// Costruisce un albero binario con un solo elemento nella sua radice.
+public BinaryTree(T rootElem) ;
+
+// Ritorna l’elemento alla radice dell’albero
+public /*@ pure @*/ T getRoot() ;
+
+// Ritorna un Iterator che itera esattamente una volta su ogni elemento nell’albero.
+public /*@ pure @*/ Iterator<T> allElements() ;
+
+// Inserisce l’elemento elem come figlio sinistro del nodo che contiene l’elemento
+// father, purch`e tale figlio sinistro non esista gi`a, in tal caso solleva
+// l’eccezione NonEmptyChildException. Se father non `e parte dell’albero,
+// solleva l’eccezione NoSuchElementException. Se l’elemento elem `e gi`a
+// parte dell’albero solleva l’eccezione ExistingElementException.
+public void insertLeft(T father, T elem) throws NonEmptyChildException, NoSuchElementException, ExistingElementException ;
+
+// Inserisce l’elemento elem come figlio destro del nodo che contiene l’elemento
+// father, purch`e tale figlio destro non esista gi`a, in tal caso solleva
+// l’eccezione NonEmptyChildException. Se father non `e parte dell’albero,
+// solleva l’eccezione NoSuchElementException. Se l’elemento elem `e gi`a
+// parte dell’albero solleva l’eccezione ExistingElementException.
+public void insertRight(T father, T elem) throws NonEmptyChildException, NoSuchElementException, ExistingElementException ;
+
+// Ritorna true se l’elemento elem è parte dell’albero, falso altrimenti.
+public /*@ pure @*/ boolean contains(T elem) ;
+
+// Ritorna l’elemento a sinistra dell’elemento father (null se tale figlio
+// sinistro non esiste). Solleva l’eccezione NoSuchElementException se father
+// non `e parte dell’albero. public /*@ pure @*/ T left(T father) throws NoSuchElementException ;
+
+// Ritorna l’elemento a destra dell’elemento father (null se tale figlio
+// destro non esiste). Solleva l’eccezione NoSuchElementException se father
+// non `e parte dell’albero. public /*@ pure @*/ T right(T father) throws NoSuchElementException ;
+
+// Ritorna l’elemento padre dell’elemento elem; null se elem `e la radice
+// dell’albero. Solleva l’eccezione NoSuchElementException se elem non `e parte dell’albero.
+public /*@ pure @*/ T father(T elem) throws NoSuchElementException ;
+
+}
+
+-------------------------------------------------------------------------------------------------
+ESERCIZIO ALLUCINANTE, MI DISPIACE PER CHI L'HA FATTO ALL'ESAME
+
+Domanda A: Si specifichino in JML i metodi insertLeft e father.
+
+//NOTA: definisco una procedura che controlla che l'albero mantiene gli stessi elementi precedenti
+//      e che la sua struttura è rimasta inalterata. Ci sono 3 casi:
+//      caso 1: figlio sinistro può esistere oppure no
+//      caso 2: figlio destro può esistere oppure no
+//      caso 3: padre può esistere oppure no (quindi essere il root)
+
+//@ unchanged() ==
+    getRoot().equals(\old(getRoot())) && (\forall T el; ; contains(el) <==> \old(contains(el))) &&
+    (\forall T el; contains(el) ; \old(left(el)==null) ? left(el)==null : left(el).equals(\old(left(el))) ) &&
+    (\forall T el; contains(el) ; \old(right(el)==null) ? right(el)==null : right(el).equals(\old(right(el)))) &&
+    (\forall T el; contains(el) ; getRoot().equals(el) ? father(el) == null : father(el).equals(\old(father(el)))
+
+
+//@requires father != null && elem != null
+//@ensures \old(contains(father)) && \old(!contains(elem)) && \old(left(father)==null) &&
+//@     left(father).equals(elem) && getRoot().equals(\old(getRoot())) &&
+//@     (\forall T el; \old(contains(el)) ; contains(el)) &&
+//@     (\forall T el; !el.equals(elem) && contains(el) ; \old(contains(el))) &&
+//@     (\forall T el; !el.equals(father) && \old(contains(el)) ;
+ //@         \old(left(el)==null) ? left(el)==null : left(el).equals(\old(left(el)))) &&
+ //@    (\forall T el; contains(el) ;
+ //@            \old(right(el)==null) ? right(el)==null : right(el).equals(\old(right(el)))) &&
+ //@    (\forall T el; \old(contains(el)) ;
+ //@        getRoot().equals(el) ? father(el) == null : father(el).equals(\old(father(el))))
+ //@    && left(elem)==null && right(elem)==null
+
+ //@signals (NonEmptyChildException e) \old(left(father)!=null) && unchanged();
+ //@signals (NoSuchElementException e) \old(!contains(father)) && unchanged();
+ //@signals (ExistingElementException e) \old(contains(el) && unchanged();
+ public void insertLeft(T father, T elem) throws NonEmptyChildException,
+                                            NoSuchElementException, ExistingElementException ;
+
+
+Domanda c) Si fornisca l’invariante pubblico della classe BinaryTree.
+
+//@public invariant
+//@     getRoot()!=null && contains(getRoot()) && !contains(null) &&
+//@     (\forall T el; contains(el) && left(el)!=null; contains(left(el))) &&
+//@     (\forall T el; contains(el) && right(el)!=null; contains(right(el)))
+//@     (\forall T el; contains(el);
+//@             getRoot().equals(el) ? father(el) == null : father(el) != null &&
+//@              contains(father(el))) &&
+//@     (\forall T el; contains(el) && left(el)!=null ; father(left(el)).equals(el)) &&
+//@     (\forall T el; contains(el) && right(el)!=null ; father(right(el)).equals(el)) &&
+//@     (\forall T el; contains(el);
+//@         !left(el).equals(getRoot()) && !right(el).equals(getRoot()) &&
+//@         (\forall T el1; contains(el1); (\forall T el2; contains(el2) && !el1.equals(el2);
+//@                 !left(el1).equals(left(el2)) && !left(el1).equals(right(el2)) &&
+ //@                !right(el1).equals(left(el2)) && !right(el1).equals(right(el2))))
+
+

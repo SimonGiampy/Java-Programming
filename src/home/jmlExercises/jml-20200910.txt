@@ -1,0 +1,49 @@
+Si consideri la seguente classe ImmList<T> che definisce una lista immutabile di elementi di tipo T.
+
+public /∗@pure@∗/ class ImmList<T> {
+//Ritornatrueseesoloselalistae’vuota
+public boolean empty();
+
+//Ritornailprimoelementodellalista
+//LanciaEmptyExceptionselalistae’vuota
+public T first() throws EmptyException;
+
+//Ritornaunanuovalistaidenticaathismasenzailprimoelemento
+//Incasodilistavuota,ritornaunanuovalistavuota
+public ImmList<T> tail();
+
+//Ritornaunanuovalistachecontieneelinultimaposizione
+//Lancia NullException se el è null
+public ImmList<T> add(T el) throws NullException;
+
+//Ritornailnumerodioccorrenzedell’elementoelnellalista
+public int count(T el)
+
+}
+
+
+--------------------------------------------------------------------------------------
+Domanda A:
+Si scriva la specifica JML del metodo add.
+
+//NOTA: la lista restituita in output è una nuova lista, e anche se non c'è scritto nel pdf, si assume
+//      che la nuova lista sia identica a this, e ha l'elemento aggiunto nell'ultima posizione
+
+//@ensures \result != null && el != null &&
+//@     this.empty ==> (\result.first().equals(el) && \result.tail() == null) &&
+//@     !this.empty ==> (\result.first().equals(this.first()) &&
+//@         \result.tail().equals(this.tail().add(el)))
+//@signals (NullException e) (el == null)
+public ImmList<T> add(T el) throws NullException;
+
+//NOTA2: la specifica è stata scritta ricorsivamente, facendo uso del caso base (lista vuota) e
+//      richiamando il metodo add per l'aggiunta dell'elemento in coda
+
+Domanda B:
+Si scriva la specifica JML del metodo count.
+
+
+//@ensures el != null && this.empty() ==> \result = 0 &&
+//@      (!this.empty && this.first().equals(el)) ==> \result = count(this.tail()) + 1 &&
+//@      (!this.empty && !this.first().equals(el)) ==> \result = count(this.tail())
+public int count(T el);

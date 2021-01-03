@@ -1,0 +1,82 @@
+Si consideri la seguente specifica di un database di tratte servite da una compagnia area.
+Domanda A: specificare il JML dei metodi forniti
+
+public class FlightsDBf {
+
+    // \result == true se e solo se esiste una tratta tra from e to
+    public /*@pure@*/ boolean directlyConnected(String from,String to);
+--
+    // \result == true se e solo se esiste una tratta tra from e to oppure una sequenza di tratte con
+    //      scali intermedi tra from e to
+
+    // @requires from != null && to != null
+    // @ensures \result <==> ( directlyConnected(from, to) ||
+    //@     (\exists String x; x!=null; directlyConnected(from, x) && directlyConnected(x, to)));
+    public /*@pure@*/ boolean connected(String from, String to);
+
+
+    // aggiunge la tratta al database; lancia InvalidArgumentException se to e from sono lo stesso aeroporto
+    //@requires from != null && to != null
+    //@ensures !from.equals(to) && directlyConnected(from, to) &&
+    //@     (\forall String x; x!= null; (\forall String y; y != null;
+    //@         directlyConnected(x,y) <==> (\old(directlyConnected(x,y)) || (x.equals(from) && y.equals(to))) ))
+    //@signals (InvalidArgumentException e) (from.equals(to) && unchanged())
+    public void addRoute(String from, String to) throws InvalidArgumentException;
+
+
+    //ritorna l'insieme delle destinazioni che sono raggiungibili da from con due
+    //      tratte consecutive (un solo scalo) ma non mediante una tratta diretta
+
+    //@ requires from != null
+    //@ensures !\result.contains(null) && (\forall String x; x != null && !x.equals(from);
+    //@     \result.contains(x) <==> (!dirConn(x, from) && (\exists String y; y != null && !y.equals(x);
+    //@         direConn(from, y) && dirConn(x, y))))
+    public /*@pure@*/ Set<String> reachableWithOneStop(String from);
+
+
+    //definizione procedura aggiuntiva per la descrizione delle altre funzioni in jml. E' necessario per i
+    //      metodi dichairati come pure, in quanto non approtano modifiche alle strutture dati.
+    //@ unchanged() = (\forall String x; x != null; (\forall String y; y != null && !x.equals(y);
+    //@     (connected(x,y) <==> \old(connected(x,y)) && directlyConnected(x,y) <==> \old(dirConn(x,y)))
+
+}
+
+--------------------------------------------------------------------------------------------------
+
+Domanda B:
+Si consideri la seguente implementazione (parziale) di FlightsDB che si basa su una mappa che
+associa a ogni aeroporto l’insieme degli aeroporti connessi mediante una tratta diretta.
+Si fornisca un invariante di rappresentazione per tale implementazione.
+
+public class FlightsDBf {
+
+private Map<String,Set<String>> connections = newHashMap<>();
+
+public boolean directlyConnected(String from,String to) {
+    return connections.containsKey(from) && connections.get(from).contains(to);
+}
+
+public boolean connected(String from, String to) {
+    return directlyConnected(from,to) || (connections.containsKey(from) &&
+    connections.get(from).stream().anyMatch(x -> connected(x,to));
+}
+
+
+public void addRoute(String from,String to) throws InvalidArgumentException {
+    if(from.equals(to)) throw new InvalidArgumentException();
+    if(!connections.containsKey(from))  connections.put(from,newHashSet<>());
+    connections.get(from).add(to);
+}
+
+public Set<String> reachableWithOneStop(String from) { ... }
+
+}
+
+//@ private invariant
+//@ connections != null && !connections.contains(null) &&
+//@     (\forall String x; connections.containsKey(x); connections.get(x) != null &&
+//@         !connections.get(x).contains(null) && !connections.get(x).contains(x))
+
+
+
+

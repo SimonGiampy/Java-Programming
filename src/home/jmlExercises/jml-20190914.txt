@@ -1,0 +1,109 @@
+Si consideri la seguente specifica della classe PriorityQueue che modella una coda con
+priorit`a di elementi (non nulli).
+
+class PriorityQueue<T> {
+
+// Aggiunge in coda l’elemento element con priorit`a priority.
+// Solleva una DuplicateException se l’elemento `e gi`a presente nella coda.
+public void push(T element, int priority) throws DuplicateException;
+
+// Ritorna l’elemento più vecchio tra quelli a priorit`a massima presenti
+// nella coda, senza rimuoverlo dalla coda.
+ // Solleva una EmptyException se la coda è vuota.
+ public T /* pure */ peek() throws EmptyException;
+
+// Ritorna e rimuove l’elemento più vecchio tra quelli a priorità massima presenti nella coda.
+// Solleva una EmptyException se la coda `e vuota.
+public T pull() throws EmptyException;
+
+// Ritorna il numero totale di elementi presenti nella coda.
+public int /* pure */ size();
+
+// Ritorna il numero di elementi aventi priorit`a priority presenti nella coda.
+ public int /* pure */ size(int priority);
+
+// Ritorna true se e solo se l’element elem e` presente in coda.
+public boolean /* pure */ contains(T element);
+
+// Ritorna la priorità di element, se element `e presente in coda.
+// Solleva una UnknownElement altrimenti.
+public int /* pure */ getPriority(T element);
+
+// Ritorna l’iteratore di tutti gli elementi presenti nella coda.
+// L’iteratore restituisce gli elementi in ordine di priorità decrescente e,
+// a pari priorità, dall’elemento pi`u vecchio al più recente.
+@Override
+public /* pure */ Iterator<T> iterator();
+
+}
+
+---------------------------------------------------------------------------------------------------
+
+Domanda A:
+Si specifichino in JML i metodi push e pull senza fare ricorso ad un oggetto astratto tipico ma
+ usando solo i metodi puri disponibili. Indicare se e quali aspetti del comportamento dei due
+  metodi in oggetto non possano essere specificati.
+
+[in questo esercizio non capisco perchè è stato inserito un Iterator se poi non viene usato nella soluzione]
+
+1. push
+
+//@ unchanged() == (\forall T el; ; contains(el) <==> \old(contains(el))) &&
+//@         (\forall int p; ; size(p) == \old(size(p))) && \old(size()) == size() &&
+//@         (\forall T el; contains(el); getPr(el) == \old(getPr(el))) &&
+//@
+
+//@requires element != null
+//@ensures !\old(contains(element)) && contains(element) && \old(size()) +1== size() &&
+//@     \old(size(priority)) + 1 == size(priority) && getPr(element) == priority &&
+//@     (\forall T el; \old(contains(el));
+//@             contains(el) &&  getPr(el) == \old(getPr(el)) ) &&
+//@     (\forall int p; p!=priority; size(p) == \old(size(p)))
+//@signals (DuplicateException e) \old(contains(element)) && unchanged()
+public void push(T element, int priority) throws DuplicateException;
+
+-> mi devo assicurare che a seguito del lancio dell'eccezione non è cambiata la struttura della lista.
+    Della struttura devo controllare: il numero degli elementi per ogni priorità, che non siano cambiati
+    i valori degli elementi e le priorità.
+-> nella ensures devo controllare che è stato aggiunto un elemento e l'unica cosa che cambia è quindi
+    la presenza di quell'elemento, quindi un elemento con quella priorità in più. Il resto non cambia
+
+2. pull
+
+// Ritorna e rimuove l’elemento più vecchio tra quelli a priorità massima presenti nella coda.
+//  Ovvero chiama la funzione peek, prende quel valore e lo rimuove dalla lista
+
+//@ensures \old(size())>0 && size() == \old(size()) - 1 &&
+//@     \old(contains(\result)) && !contains(\result) &&
+//@     (\forall T el; !el.equals(\result); contains(el) <==> \old(contains(el))) &&
+//@     \result.equals(\old(peek())) &&
+//@     !peek().equals(\old(peek())) && (* this is probably useless *)
+//@     size(getPriority(\result)) == \old(size(getPriority(\result))) - 1 &&
+//@     (\forall int p; p != getPriority(\result); size(p) == \old(size(p)))) &&
+//@     (\forall T el; contains(el);
+//@         getPriority(el) == \old(getPriority(el)) && getPriority(el) <= \old(getPriority(\result)))
+//@signals (EmptyException e) \old(size()) == 0 && size()==0 &&
+//@     (\forall int p; ; size(p) == 0)
+public T pull() throws EmptyException;
+
+---------------------------------------------------------------------------------------------------
+
+Domanda B:
+Si assuma ora che la classe PriorityQueue non includa il metodo iterator ma includa invece il metodo get
+definito come segue. Per tale versione della classe si fornisca l’invariante pubblico.
+// Ritorna l’elemento i-esimo presente nella coda secondo l’ordine previsto
+// (gli elementi sono ordinati per priorità decrescente e, a pari priorità, dal meno recente
+// al più recente).
+@Override
+public T /* pure */ get(int i);
+
+//@public invariant
+//@ (\sum int p; ; size(p)) == size() &&
+//@ (\forall int i; 0 <= i < size() - 1; getPriority(get(i)) >= getPriority(get(i + 1))) &&
+//@ (\forall int i; 0 <= i < size(); get(i) != null) &&
+//@ (\forall(T el; ; contains(el) <==> (\exists int i; 0 <= i < size(); get(i).equals(el))) &&
+//@ get(0).equals(peek()) &&
+//@ (\forall int p; ; (\numof T el; contains(el); getPriority(el) == p) == size(p))
+//@ (\forall int i; 0 <= i < size(); (\forall int j; 0 <= j < size(); i!=j ==> !get(i).equals(get(j)) ) )
+
+

@@ -1,0 +1,90 @@
+Si consideri la seguente specifica della classe RecentContacts che modella la lista dei
+ contatti di una chat ordinati sulla base dell’ultima interazione (dalla pi`u alla meno recente).
+
+public class RecentContacts {
+
+ // Crea una lista di contatti vuota.
+ public RecentContacts();
+
+// Aggiunge un nuovo contatto in fondo alla lista.
+// Lancia l’eccezione ExistingContactException se il contatto `e gi`a in lista.
+public void add(String contact) throws ExistingContactException;
+
+// Rimuove il contatto dalla lista.
+// Lancia l’eccezione UnknownContactException se il contatto non `e in lista.
+public void remove(String contact) throws UnknownContactException;
+
+// Metodo invocato quando avviene un’interazione
+// (invio o ricezione di un messaggio) con il contatto contact.
+// Lancia l’eccezione UnknownContactException se il contatto non `e in lista.
+ public void notifyInteraction(String contact) throws UnknownContactException;
+
+// Restituisce il contatto in posizione pos.
+public /*@ pure @*/ String get(int pos);
+
+// Restituisce il numero di contatti presenti in lista.
+ public /*@ pure @*/ int size();
+
+}
+
+--------------------------------------------------------------------------------------------------
+Domanda a) Si specifichino in JML i metodi add, remove e notifyInteraction.
+
+1.
+//NOTA: aggiunta di un elemento alla fine di una lista
+
+//@ensures contact != null && \old(size()) +1 == size() && get(size()-1).equals(contact) &&
+//@     (\forall int i; i>=0 && i<\old(size()); !\old(get(i)).equals(contact) && \old(get(i)).equals(get(i))
+//@signals (ExistingContactException e) (\exists int i; i>=0 && i<size(); get(i).equals(contact) ) &&
+//@     (\forall int i; i>=0 && i<\old(size()); !\old(get(i)).equals(get(i)) ) &&
+//@     \old(size()) == size()
+public void add(String contact) throws ExistingContactException;
+
+
+2.
+//NOTA: rimozione di un elemento dopo averlo ricercato
+
+//@ensures contact != null && \old(size()) == size() +1 &&
+//@     (\exists int i; i>=0 && i<\old(size()); \old(get(i)).equals(contact) &&
+//@             (\forall j; j>=0 && j<i; \old(get(j)).equals(get(j))) &&
+//@             (\forall k; k>=i && k<size(); \old(get(k+1)).equals(get(k))) )
+//@signals (UnknownContactException e) !(\exists int i; i>=0 && i<size(); get(i).equals(contact) ) &&
+//@     (\forall int i; i>=0 && i<\old(size()); !\old(get(i)).equals(get(i)) ) &&
+//@     \old(size()) == size()
+public void remove(String contact) throws UnknownContactException;
+
+-> devo controllare che gli elementi prima del contatto rimosso sono rimasti nella stessa posizione,
+        mentre quelli successivi al contatto rimosso sono stati shiftati di una posizione in avanti
+
+3.
+//NOTA: c'è scritto in cima all'esercizio che la lista dei contatti è ordinata in base all'ultima
+//      interazione. Quindi se un contatto riceve un messaggio, salirà in cima alla lista
+
+//@ensures contact != null && get(0).equals(contact) &&
+//@     (\exists int i; 0<=i<\old(size()); contact.equals(\old(get(i))) &&
+//@         (\forall int j; j>=0 && j<i; \old(get(j)).equals(get(j+1))) &&
+//@         (\forall int k; k>=i && k<size(); \old(get(k)).equals(get(k))) )
+//@signals (UnknownContactException e) !(\exists int i; i>=0 && i<size(); get(i).equals(contact) ) &&
+//@     (\forall int i; i>=0 && i<\old(size()); !\old(get(i)).equals(get(i)) ) &&
+//@     \old(size()) == size()
+public void notifyInteraction(String contact) throws UnknownContactException;
+
+->  devo controllare che nella prima posizione c'è il contatto nuovo (in ingresso), mentre
+        quelli prima del contatto rimosso vengono shiftati di una posizione in avanti,
+        e quelli dopo il contatto rimosso rimangono nella loro posizione precedente
+
+
+------------------------------------------------------------------------------------------------------
+
+Domanda b) Si specifichi in JML l’invariante pubblico del tipo RecentContacts. Esistono
+proprietà rilevanti per la classe che non si possono esprimere con un invariante?
+
+
+//@public invariant
+//@     size()>=0 && (\forall int i; 0<=i<size(); get(i) != null &&
+//@         (\forall int j; 0<=j<size(); i!=j ==> !get(i).equals(get(j)) ))
+
+Non è possibile esprimere proprietà evolutive, in particolare non si può affermare che l’ordine
+ con cui si trovano i contatti riflette l’ordine di invocazione dei metodi add, remove e
+ notifyInteraction. Tale proprietà viene comunque garantita dalle post-condizioni dei modificatori.
+

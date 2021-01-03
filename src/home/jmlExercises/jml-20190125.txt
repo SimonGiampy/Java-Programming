@@ -1,0 +1,119 @@
+Si consideri il seguente tipo di dato astratto che definisce una MultiList<T>. Una MultiList<T> `e un atomo
+(ovvero un elemento di un generico tipo T) oppure una lista di MultiList<T>.
+Per esempio, (1 (2) 3 4 ((5 6) 7)) `e una rappresentazione testuale di una MultiList<Integer>, il cui primo
+elemento (first) `e l’atomo 1 e il cui resto (rest) `e la MultiList ((2) 3 4 ((5 6) 7)), ovvero la MultiList
+privata del suo primo elemento.
+Altri esempi di MultiList<Integer> sono l’atomo 3 e la MultiList (3). Si noti che queste due
+MultiList<Integer> sono diverse: la prima `e una MultiList “atomica”, mentre la seconda `e una “vera”
+MultiList che contiene al suo interno l’atomo 3.
+
+public class MultiList<T> {
+
+// Crea una MultiList vuota
+public MultiList();
+
+// Crea una MultiList composta dal solo atomo x (non nullo)
+public MultiList(T x);
+
+// Ritorna true se this e’ vuota
+public /*@ pure @*/ boolean isEmpty()
+
+// Ritorna true se this e’ un atomo
+public /*@ pure @*/ boolean isAtom()
+
+// Ritorna il valore dell’atomo se this e’ un atomo
+// Lancia un’eccezione opportuna in ogni altro caso
+public /*@ pure @*/ T getAtom() throws EmptyException, MalformedListException ;
+
+// Ritorna il primo elemento di this, se this non e’ un atomo e non e’ vuota.
+// Lancia un’eccezione opportuna in ogni altro caso
+public /*@ pure @*/ MultiList<T> first() throws EmptyException, MalformedListException ;
+
+// Ritorna la MultiList<T> che contiene tutti gli elementi di this tranne il primo.
+// Lancia un’eccezione opportuna se this e’ vuota o se e’ un atomo
+public /*@ pure @*/ MultiList<T> rest() throws EmptyException, MalformedListException ;
+
+// Aggiunge l’elemento x (una MultiList<T> non nulla) come primo elemento di this.
+// Lancia una MalformedListException se this e’ un atomo
+public void addFirst(MultiList<T> x) throws MalformedListException ;
+
+// Rimuove il primo elemento (una MultiList<T>) da this.
+// Lancia un’eccezione opportuna se this e’ vuota o se e’ un atomo
+public void removeFirst() throws EmptyException, MalformedListException ;
+
+// Ritorna true se this contiene la MultiList<T> x come elemento
+// a qualsiasi livello di annidamento.
+// Lancia una MalformedListException se this e’ un atomo
+// (mentre ritorna false se this e’ empty)
+public /*@ pure @*/ boolean contains(MultiList<T> x) MalformedListException ;
+
+// Ritorna true se this e that sono entrambi atomi e hanno
+// lo stesso valore (this.atom.equals(that.atom))
+// oppure se sono entrambe MultiList "vere" che contengono
+// gli stessi elementi nello stesso ordine
+@Override
+public /*@ pure @*/ boolean equals(Object that) ;
+
+// Ritorna una copia di this, tale per cui this.equals(copy())
+public /*@ pure @*/ MultiList<T> copy() ;
+
+}
+
+-----------------------------------------------------------------------------------------------------
+Domanda a)
+Si specifichino in JML i metodi addFirst, removeFirst e contains.
+
+1.
+// Aggiunge l’elemento x (una MultiList<T> non nulla) come primo elemento di this.
+// Lancia una MalformedListException se this e’ un atomo
+
+//@unchanged () = this.isAtom() && \old(this.isAtom()) && getAtom() == \old(getAtom())
+
+//@requires x != null
+//@ensures !this.isAtom() && !x.isAtom() && !\old(this.isAtom()) &&
+//@      && this.first().equals(x) && this.rest().equals(\old(this.copy()))
+//@signals MalformedListException  unchanged()
+public void addFirst(MultiList<T> x) throws MalformedListException ;
+
+-> ho controllato che il resto della lista risultante è uguale alla lista prima di chiamare il metodo
+
+2.
+// Rimuove il primo elemento (una MultiList<T>) da this.
+// Lancia un’eccezione opportuna se this e’ vuota o se e’ un atomo
+
+//@ensures !\old(isEmpty()) && !old(isAtom()) && !isAtom() && \old(rest()).equals(this)
+//@signals EmptyException \old(this.isEmpty()) && this.isEmpty()
+//@signals MalformedListException unchanged()
+public void removeFirst() throws EmptyException, MalformedListException ;
+
+-> ho controllato che la lista iniziale senza il primo elemento è uguale alla lista ottenuta
+
+3.
+// Ritorna true se this contiene la MultiList<T> x come elemento a qualsiasi livello di annidamento.
+// Lancia una MalformedListException se this e’ un atomo (mentre ritorna false se this e’ empty)
+
+
+//@requires x != null
+//@ensures !isAtom() && \result == true <==> (!isEmpty() && ( first().equals(x) ||
+//@     (!isAtom() && first().contains(x)) || (!rest().isEmpty() && rest().contains(x)) ))
+//@signals MalformedListException  unchanged()
+public /*@ pure @*/ boolean contains(MultiList<T> x) MalformedListException ;
+
+-> controllo ricorsivamente che l'elemento da cercare si trova nel primo elemento (la prima sottolista)
+        oppure che si trovi nel resto della lista (this). Il controllo avviene ricorsivamente perchè
+        mano a mano che va avanti controlla le sottoliste presenti in first() o rest(). Il caso base
+        è il caso in cui il primo elemento della lista è uguale all'elemento cercato
+
+
+----------------------------------------------------------------------------------------------------
+Domanda B: Si consideri la seguente implementazione di una MultiList<T>.
+Codice nel pdf molto lungo, non lo riporto.
+
+Scrivere in JML l’invariante di rappresentazione (Rep Invariant) per MultiList<T>
+
+//@ private invariant
+//@     ((atom != null && list == null) || (atom == null && list != null) ) &&
+//@     list != null ==> (\forall int i; i>=0; i<list.size(); list.get(i) != null)
+
+-> ricavo i valori da controllare dai due costruttori. Nel caso la lista non debba essere nulla, mi
+        assicuro che tutti i suoi valori siano non nulli
