@@ -1,0 +1,83 @@
+Si consideri la seguente specifica della classe Bunch
+
+
+// OVERVIEW: Una collezione di oggetti di tipo T.
+// Gli elementi sono disposti in ordine qualunque e sono di molteplicit`a qualunque.
+// Il valore null non fa parte della collezione
+// Usa equals per confrontare gli oggetti
+
+public class Bunch<T> {
+
+//@ensures (* costruisce il bunch vuoto *)
+public Bunch();
+
+// Aggiunge x a this
+// Lancia eccezione se x e’ null
+public void ins(T x) throws NullPointerException;
+
+// Elimina una comparsa di x
+// Restituisce il numero di elementi rimanenti uguali a x.
+// Lancia eccezione se x e’ null
+public int del(T x) throws NullPointerException;
+
+// Restituisce il numero di elementi uguali a x
+public /*@ pure @*/ int num(T x)
+
+}
+
+----------------------------------------------------------------------------------------------
+
+Domanda a
+Scrivere la specifica JML del metodo del(T x) e un invariante pubblico per la classe.
+
+1.del
+
+//@ensures x != null && \result == num(x) &&
+//@     (\forall T el; !el.equals(x); num(el) == \old(num(el))) &&
+//@     (\old(num(x)==0) ? num(x) == 0 : num(x) ==\old(num(x)-1) ) &&
+//@     (\forall T el; num(el) > 0; el != null)
+//@signals (NullPointerException e) x == null && num(x) == \old(num(x)) &&
+//@     (\forall T el; !el.equals(x); num(el) == \old(num(el)))
+public int del(T x) throws NullPointerException;
+
+-> rispetto alla soluzione proposta ho aggiunto che tutti gli elementi devono essere non nulli
+    come richiesto nella specifica del problema. Inoltre controllo che il resto sia rimasto inalterato
+    nella signals
+
+2.
+//@public invariant (\forall T t; ; num(t) >= 0);
+
+--------------------------------------------------------------------------------------------------
+Domanda B
+Completare, con AF e RI (esprimibili con opportuni inviarianti) e con il codice del metodo del(T x),
+la seguente implementazione della classe Bunch. Il rep è costituito da una lista di coppie, ciascuna
+ contenente un elemento, se presente, e la sua molteplicità. I dettagli possono essere ricavati
+ dall’esame del codice.
+
+ <resto del codice omesso>
+
+public int del(T x) throws NullPointerException {
+    if (x== null) throw new NullPointerException();
+    int j = find(x);
+    if (j==-1) return 0;
+
+    //my code
+    Pair pair = elem.get(j);
+    if (pair.i == 1) {
+        elem.remove(pair); //qua il codice della soluzione è sbagliato perchè rimuove j e non pair
+        return 0;
+    }  else {
+        return --pair.i;
+    }
+}
+
+RI (representation invariant):
+//NOTA: asserisco che tutte le molteplicità nella lista sono numeri positivi e non uguali a 0
+//@private invariant elem != null && (\forall int j; 0<=j && j<elem.size(); elem.get(j).i>0);
+
+AF (abstract function):
+//NOTA: asserisco che la coppia degli elementi è formata da un elemento di tipo T e la sua numerosità
+//      corrisponde sempre alla variabile i (del Pair).
+//@private invariant
+//@     (\forall int j; 0<=j && j<elem.size(); num(elem.get(j).t) == elem.get(j).i) &&
+//@     (\forall T x; ;(\forall int j; 0<=j && j<elem.size(); !x.equals(elem.get(j).t) ==> num(x)==0))

@@ -14,26 +14,28 @@ public interface Dictionary {
     // \result == true sse word è in this
     public /*@pure@*/ boolean contains(String word);
 
----
+1.add
     // aggiunge word al dizionario
 
     //@requires word != null
     //@ensures contains(word) &&
     //@     (\forall String x; contains(x); word.equals(x) || \old(contains(x))) &&
     //@     (\forall String x; \old(contains(x)); contains(x))
-    //@signals (NullPointerException e) (word == null  &&
-    //@     (\forall String x; ; \old(contains(x)) <==> contains(x)))
+    //@signals (NullPointerException e) word == null  &&
+    //@     (\forall String x; ; \old(contains(x)) <==> contains(x))
     public void add(String word) throws NullPointerException;
 
----
+
+2.similar
     // \result==true se è presente nel dizionario una parola x della stessa
     //      lunghezza di word che differisce al più di un carattere da word stessa
 
     //@requires word != null
-    //@ensures \result == true <==> (\exists String x; contains(x) && x.length() == word.length() &&
+    //@ensures \result == true <==> (\exists String x; contains(x); x.length() == word.length() &&
     //@     (\numof int i; i>=0 && i < x.length();  x.chartAt(i) != word.charAt(i)) <= 1)
     public /*@pure@*/ boolean similar(String word);
 
+3.complete
     // \result è una lista di tutte le parole nel dizionario che iniziano per prefix;
     //      Se non ve n'è nessuna, \result è la lista vuota. La stringa prefix deve essere lunga
     //      almeno tre caratteri

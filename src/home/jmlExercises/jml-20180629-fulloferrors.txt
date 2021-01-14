@@ -1,0 +1,139 @@
+Si consideri la seguente specifica della classe CodaConRitardo, che implementa l’interfaccia Collection
+(ed ha quindi anche i metodi contains, containsAll, isEmpty, removeAll, toString, size,
+...). La classe definisce una coda la cui testa `e l’elemento pi`u in ritardo rispetto alla propria scadenza, ossia
+quello scaduto da pi`u tempo. Se nessun elemento `e ancora scaduto, la testa non esiste e il metodo poll()
+restituisce null. Si suppone che la coda non ammetta elementi duplicati, ossia lo stesso oggetto non pu`o
+essere inserito pi`u volte nella coda.
+
+
+public class CodaConScadenze<E> implements Collection<E> {
+
+/* costruisce una coda vuota */
+public CodaConScadenze()
+
+/* inserisce x nella coda se non e’ gia’ presente (la scadenza `e indicata
+in ms dal tempo attuale); restituisce false sse x e’ gia’ nella coda */
+public boolean add(E x, long scade)
+
+/* rimuove tutti gli elementi: */
+public void clear()
+
+/* ritorna null se la coda e’ vuota, altrimenti restituisce, senza eliminarla, a testa della coda;
+* se la testa non esiste, restituisce l’elemento con scadenza pi`u prossima */
+public E peek()
+
+/* restituisce ed elimina la testa della coda;
+* ritorna null (senza eliminare nulla) se la testa non esiste (secondo la definizione). */
+public E poll()
+
+/* restituisce un iteratore su tutti gli elementi (scaduti o no) della coda,
+* in ordine di scadenza. La coda non puo’ essere modificata mentre un iteratore e’ in uso */
+public Iterator<E>iterator()
+
+/* restituisce un arraylist che contiene tutti gli elementi della coda, nell’ordine di scadenza */
+ArrayList<E> toArrayList()
+
+/* restituisce il valore della scadenza dell’elemento x al momento della
+* chiamata. Se l’elemento non e’ presente nella coda, lancia un’eccezione */
+public long scadenza(E x) throws NotFoundException
+
+}
+
+-------------------------------------------------------------------------------------------------------
+
+DOMANDA A:
+Si stabilisca preliminarmente quali metodi sono osservatori. Specificare quindi in JML un invariante pubblico
+per la classe. Vi sono proprieta’ interessanti della classe che non si possono esprimere con un invariante?
+Si specifichino i metodi add(), peek(), poll() in funzione (di alcuni) degli osservatori.
+
+
+0. observer methods:
+the observe methods are the methods called from external classes that retrieve information but do not
+interfere of modify the class object parameters. So, the observe methods in this class are:
+- peek (because it doesn't remove elements)
+- toArryList (since provides a copy)
+- scadenza (returns a number derived from an object attribute)
+
+
+NOTE: this class implements the methods from Collection, and can be modeled as a queue.
+1. @public invariant
+
+//ordine di scadenza
+(\forall int i; 0 <= i < size() - 1 ; toArrayList().get(i) != null && toArrayList().get(i) != null &&
+      scadenza(toArrayList().get(i)) <= scadenza(toArrayList().get(i+1)))
+
+//non ci sono duplicati
+(\forall int i; 0 <= i < size(); (\forall int j; 0 < j < size();
+        i != j ==> toArr().get(i) != toArr().get(j) ))
+
+//NOTE: although it's not specified in the problem description, according to the solutions, it seems that
+//      the head of the list exists if the value scadenza(get(0)) < 0, which means that the first value
+//      in the arrayList has expired (expiry is negative). Also, it seems that only the first value
+//      is allowed to have a negative expiry value, even though it's not specified anywhere
+
+2. E peek();
+//@ensures
+//@isEmpty() ==> \result == null &&
+//@     (isEmpty() ? \result == null : \result == (
+//@         scadenza(toArrayList().get(0)) >=0 ? toArrayList().get(1) : toArrayList().get(0)) )
+
+
+3. add
+//@ensures  \result == (\old(contains(x)) ? false : true) &&
+//@     \old(contains(x)) ==> (\old(size()) == size() && contains(x) )
+//@     !\old(contains(x)) ==> (\old(size()) +1 == size() && contains(x) )
+//@     && size() == \old(size()) && containsAll(\old(toArrayList())) &&
+//@     scadenza(x) == scade
+public boolean add(E x, long scade);
+
+
+4. poll
+//@ensures (scadenza(toArrayList().get(0)) >=0 ?
+//@     (\result == null && toArrayList().equals(\old(toArrayList())) )
+//@     : (\result == toArrayList().get(0) &&
+//@     !this.contains(\result) && size() == \old(size())-1 &&
+//@     \old(toArrayList()).equals(toArrayList().subList(1,toArrayList.size()) ) ))
+public E poll()
+
+------------------------------------------------------------------------------------------------------
+DOMANDA B:
+
+
+Si scriva l’invariante di rappresentazione della classe e la funzione di astrazione. Si implementi, eventualmente
+aiutandosi con commenti, il metodo poll().
+
+1. RI representation invariant
+//@private invariant
+//@ lastUpdate.elapsed() >= 0 && !elems.isEmpty() && !timeStamps.isEmpty() &&
+//@ !timeStamps.contains(null) && !elems.contains(null) && elems.size() == timeStamps.size();
+
+
+2. AF abstraction function
+//@private invariant
+//@ (\forall int i; 0 <= i < elems.size(); scadenza(elems.get(i)) == timestamps.get(i) ) &&
+//@ toArrayList().equals(elems) && (\forall int i; 0 <= i && i < elems.size()-1;
+//@      scadenza(toArrayList().get(i)) <= scadenza(toArrayList().get(i+1)) )
+//@
+
+
+3. implementazione di poll
+/* restituisce ed elimina la testa della coda;
+* ritorna null (senza eliminare nulla) se la testa non esiste (secondo la definizione). */
+//la definizione che io ho dato vedendo la soluzione stabilisce che la testa esiste se la scadenza di un
+// elemento è negativa
+public E poll() {
+    if (elems.isEmpty()) return null;
+    long expiry = Collections.min(timeStamps);
+    if (expiry >= 0) return null; //a head doesn't exists
+
+    //implicit assumption that if a head exists, then it is unique
+    //if it exists, then it is removed. Elems is NOT an ordered list, so the solution provided
+    //  is unnecessarily articulated
+
+    int index = timeStamps.indexOf(expiry);
+    E removedElement = elems.remove(index);
+    timeStamps.remove(index);
+    updateTimeStamps();
+    return removedElement;
+
+}

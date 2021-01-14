@@ -53,8 +53,10 @@ Domanda A: Si scriva la specifica JML del metodo push.
 
 //@ensures m != null && (\old(bufferSize()) + m.numBytes() <= maxBytes()) && (size() == \old(size()) + 1) &&
 //@     (\forall int i; i>=0 && i<\old(size()); \old(get(i)) == get(i)) && (get(size() - 1) == m)
-//@signals (NullPointerException e) (m == null)
-//@signals (BufferFullException f) (bufferSize() + m.numBytes() > maxBytes())
+//@signals (NullPointerException e) m == null && size() == \old(size()) &&
+//@     (\forall int i; i>=0 && i<\old(size()); \old(get(i)) == get(i))
+//@signals (BufferFullException f) (bufferSize() + m.numBytes() > maxBytes()) &&
+//@     size() == \old(size()) && (\forall int i; i>=0 && i<\old(size()); \old(get(i)) == get(i))
 public void push(Message m) throws NullPointerException, BufferFullException;
 
 
@@ -62,6 +64,6 @@ Domanda B: Si scriva la specifica JML del metodo pull.
 
 //@ensures size() > 0 && (\forall int i; i>=0 && i < \old(size()); \old(get(i+1)) == get(i)) &&
 //@     (\old(size()) == size() + 1) && \result = \old(get(0))
-//@signals (BufferEmptyException e) (\old(size()) <= 0 )
+//@signals (BufferEmptyException e) \old(size()) <= 0 && size() == \old(size())
 public Message pull() throws BufferEmptyException;
 

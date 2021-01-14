@@ -1,0 +1,95 @@
+Si consideri un programma Java, rivolto ad appassionati di enigmistica, per la soluzione di semplici Crucipuzzle,
+di cui viene dato un esempio in figura.
+
+Il gioco consiste nel selezionare parole di senso compiuto all’interno della scacchiera: dall’alto al basso, dal
+basso all’alto, da sinistra a destra o da destra a sinistra, ma anche in diagonale. Ci sono quindi 8 direzioni
+possibili della selezione, che si possono individuare con i punti cardinali: N, S, E, O, NO, NE, SO, SE. A
+tale scopo, si definisce una classe mutabile Selezione, i cui oggetti contengono una sequenza di celle
+selezionate unitamente alla direzione della selezione (a partire dalla prima lettera, detta origine).
+Si definisce poi una classe Crucipuzzle i cui oggetti includono il contenuto del puzzle (scacchiera)
+e le selezioni corrette effettuate fino a quel momento. I dettagli si possono evincere dal codice qui sotto
+riportato, che include solo una specifica delle varie classi.
+
+
+public class Crucipuzzle {
+
+/* Costruisce un crucipuzzle a partire da una matrice rettangolare di
+* caratteri e da un array che contiene le parole da trovare.
+public Crucipuzzle(char[][] schema, String[] paroleContenute);
+
+/* Restituisce il contenuto del puzzle in una matrice rettangolare */
+public /*@ pure @*/ char[][] scacchiera();
+
+/* Restituisce un ArrayList con le parole ancora da individuare */
+public /*@ pure @*/ ArrayList<String> parole();
+
+}
+
+---------------------------------------------------------------------------------------------------
+
+Domanda a
+Si specifichi in JML il metodo aggiungiSelezione
+
+/* Aggiunge una nuova selezione al puzzle rimuovendo la parola corrispondente
+* dall’elenco delle parole ancora da individuare; restituisce true se e solo se la selezione
+* completa il puzzle; lancia eccezione se la selezione `e relativa ad una parola
+* gi`a trovata o che non `e prevista fra la parole contenute nel puzzle. */
+
+
+//@requires s != null
+//@ensures \old(parole()).contains(s.selezione()) && !parole().contains(s.selezione()) &&
+//@     \old(parole().size()) == parole().size() + 1 &&
+//@     (\forall String x; \old(parole()).contains(x) && x!=s.selezione(); parole().contains(x))
+//@     && \result <==> parole().size() == 0
+//@signals (SelezioneErrataException e) !\old(parole()).contains(s.selezione()) &&
+//@     parole().size() == \old(parole().size()) &&
+//@     (\forall String x; \old(parole().contains(x); parole().contains(x));
+public boolean aggiungiSelezione(Selezione s) throws SelezioneErrataException ;
+
+-----------------------------------------------------------------------------------------------------
+Domanda b
+E’ data la seguente implementazione parziale di Crucipuzzle. L’array di booleani trovata contiene
+true alla posizione i se e solo se la parola nella stessa posizione dell’ArrayList parole `e gi`a stata
+individuata.
+
+public class Crucipuzzle {
+
+//rep:
+private char[][] celle;
+private ArrayList<String> parole;
+private boolean[] trovata;
+private ArrayList<Selezione> selezionate;
+
+public Crucipuzzle(char[][] schema, String[] paroleContenute) {
+    selezionate = new ArrayList<Selezione>();
+    //...inizializza celle con lo schema, e parole con paroleContenute....
+}
+
+public /*@ pure @*/ char[][] scacchiera() {
+.......
+}
+
+public boolean aggiungiSelezione(Selezione s) throws SelezioneErrataException {
+.......
+}
+
+}
+
+Si scriva l’invariante di rappresentazione e si implementino i metodi scacchiera() e aggiungiSelezione
+
+1.invariant
+
+//NOTA: celle e’ una matrice rettangolare;
+//trovata e parole hanno la stessa lunghezza:
+//l’array selezionate puo’ contenere solo stringhe dell’Ar.List parole:
+// le parole selezionate corrispondono a quelle trovate:
+
+//@ private invariant
+//@     parole!=null && celle!=null && celle[0]!= null &&
+//@     (\forall int i; 0<i && i<celle.length; celle[i]!=null && celle[i].length==celle[i-1].length)
+//@     && trovata.length == parole.size() &&
+//@     (\forall Selezione s ; selezionate.contains(s); parole.contains(s.selezione())) &&
+//@     (\forall int i; 0 <= i && i<trovate.length; trovata[i] <==> selezionate.contains(parole.get(i)) )
+
+
+2. codice
